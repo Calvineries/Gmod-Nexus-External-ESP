@@ -11,6 +11,7 @@ Wallhack|Reading game memory only|❌|❌
 Dynamic Crosshair|Reading game memory only|❌|❌
 Triggerbot|Read and Write to game memory|❌|✅
 AimAssist|Read and Write to game memory|❌|✅
+NoRecoil|Read and Write to game memory|❌|✅
 Bhop|Read and Write to game memory|❌|✅
 ---
   
