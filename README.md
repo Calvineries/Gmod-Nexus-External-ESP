@@ -1,9 +1,17 @@
 # Gmod-Nexus-External-ESP  
-Python external wallhack, triggerbot, aimassist and bhop.  
+Nexus is a Python external wallhack, triggerbot, aimassist and bhop compiled with PyInstaller.  
 It's external : nothing is injected, no lua code is used/edited.  
   
 The wallhack is not in game: it's another application which is on top of gmod.  
 So it's impossible to detect, impossible to screengrab.  
+
+|Features|Methods|Detectable by VAC?|Detectable by servers anticheats?
+|-|-|-|
+ESP|Reading game memory only|❌|❌
+Dynamic Crosshair|Reading game memory only|❌|❌
+Triggerbot|Read and Write to game memory|❌|✅
+AimAssist|Read and Write to game memory|❌|✅
+Bhop|Read and Write to game memory|❌|✅
 
 <details>
 <summary>Wallhack</summary>
