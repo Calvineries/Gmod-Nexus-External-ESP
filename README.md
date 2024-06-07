@@ -7,7 +7,7 @@ So it's impossible to detect, impossible to screengrab.
 
 |Features|Methods|Detectable by VAC?|Detectable by servers anticheats?
 |-|-|-|-|
-ESP|Reading game memory only|❌|❌
+Wallhack|Reading game memory only|❌|❌
 Dynamic Crosshair|Reading game memory only|❌|❌
 Triggerbot|Read and Write to game memory|❌|✅
 AimAssist|Read and Write to game memory|❌|✅
