@@ -1,5 +1,5 @@
 # Gmod-Nexus-External-ESP  
-Nexus is a Python external wallhack, triggerbot, aimassist and bhop compiled with PyInstaller.  
+Nexus is a Python external wallhack, triggerbot, aimassist and bhop compiled with PyInstaller for **Gmod Chromium x64**.  
 It's external : nothing is injected, no lua code is used/edited.  
   
 The wallhack is not in game: it's another application which is on top of gmod.  
