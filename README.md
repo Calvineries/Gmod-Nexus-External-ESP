@@ -14,7 +14,8 @@ AimAssist|Read and Write to game memory|❌|✅
 NoRecoil|Read and Write to game memory|❌|✅
 Bhop|Read and Write to game memory|❌|✅
 ---
-  
+
+#Gameplays
 <details>
 <summary>Wallhack</summary>
 https://www.youtube.com/watch?v=-FNxdR3HOYo
