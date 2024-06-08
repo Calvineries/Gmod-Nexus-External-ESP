@@ -25,8 +25,8 @@ https://www.youtube.com/watch?v=-FNxdR3HOYo
 https://github.com/Calvineries/Gmod-Nexus-External-ESP/releases/
   
 ## Common issues
-> I don't see the wallhack!
+> I don't see the wallhack!  
 Use video setting **Borderless window**
 
-> The cheat don't detect gmod!
+> The cheat don't detect gmod!  
 Use the beta version: **Chromium x64**
