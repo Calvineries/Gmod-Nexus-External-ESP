@@ -5,7 +5,7 @@ It's external : nothing is injected, no lua code is used/edited.
 The wallhack is not in game: it's another application which is on top of gmod.  
 So it's impossible to detect, impossible to screengrab.  
 
-|Features|Methods|Undetectable by VAC?|Undetectable by servers anticheats?
+|Features|Methods|Undetectable by VAC|Undetectable by servers anticheats
 |-|-|-|-|
 Wallhack|Reading game memory only|✅|✅
 Dynamic Crosshair|Reading game memory only|✅|✅
