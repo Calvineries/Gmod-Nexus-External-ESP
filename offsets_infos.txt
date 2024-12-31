@@ -1,0 +1,13 @@
+This offsets.json file allows you to use your own offsets.
+By default, Nexus External gets the offsets from the github repo, which I try to update frequently.
+
+You don't have to fill all the offsets, if an offset is left empty, the value from the github repo will be used for that offset.
+
+The first 4 are necessary for the wallhack to work.
+
+Some offset names were chosen arbitrarily by me because I didn't know their real name.
+MaxOnlinePlayers = The number of slots on the server.
+m_angRotation = the address of the vertical axis.
+mat_fullbright = uses materialsystem.dll.
+screengrab = the address that changes when a screengrab is in progress.
+m_iIDEntIndex = the ID of the player who is on your crosshair, depends on dwLocalPlayer, present in the file because the offset has already changed once.

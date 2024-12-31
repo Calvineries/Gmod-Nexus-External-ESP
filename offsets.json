@@ -1,16 +1,14 @@
 {
-    "dwEntityList": "0x94ae98",
-    "dwLocalPlayer": "0x929150",
-    "dwViewMatrix": "0x732988",
-    "MaxOnlinePlayers": "0x5A85D8",
+    "dwEntityList": "",
+    "dwLocalPlayer": "",
+    "dwViewMatrix": "",
+    "MaxOnlinePlayers": "",
 
-    "screengrab": "0x5a8320",
-    "dwForceAttack": "0xa186b0",
-    "dwForceJump": "0xa186a0",
-    "m_angRotation": "0x5c8edc",
-    "mat_fullbright": "0x20E50B8",
+    "dwForceAttack": "",
+    "dwForceJump": "",
+    "m_angRotation": "",
+    "mat_fullbright": "",
+    "screengrab": "",
 
-    "m_iIDEntIndex": "0x36C0",
-
-    "gversion": "December 2024"
+    "m_iIDEntIndex": ""
 }
