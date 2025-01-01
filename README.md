@@ -1,23 +1,23 @@
 # Gmod-Nexus-External-ESP  
-Nexus is a Python external wallhack, triggerbot, aimassist and bhop compiled with PyInstaller **for GMOD x64**.  
+Nexus is an open-source Python external wallhack, triggerbot, aimassist and bhop compiled with PyInstaller **for GMOD x64**.  
 It's external : nothing is injected, no lua code is used/edited.  
   
-The wallhack is not in game: it's another application which is on top of gmod.  
+The visuals are not in the game: it's another application which is on top of gmod.  
 So it's impossible to detect, impossible to screengrab.  
 
-|Features|Methods|Undetectable by VAC|Undetectable by servers anticheats
-|-|-|-|-|
-Wallhack|Reading game memory only|✅|✅
-Dynamic Crosshair|Reading game memory only|✅|✅
-Triggerbot|Read and Write to game memory|✅|❌
-AimAssist|Read and Write to game memory|✅|❌
-NoRecoil|Read and Write to game memory|✅|❌
-Bhop|Read and Write to game memory|✅|❌
+|Features|Methods|Undetectable
+|-|-|-|
+ESP|Reading game memory only|✅
+Dynamic Crosshair|Reading game memory only|✅
+Triggerbot|Read and Write to game memory|-
+AimAssist|Read and Write to game memory|-
+NoRecoil|Read and Write to game memory|-
+Bhop|Read and Write to game memory|-
 ---
 
 ## Gameplays
 <details>
-<summary>Wallhack</summary>
+<summary>Visuals - ESP</summary>
 https://www.youtube.com/watch?v=-FNxdR3HOYo
 </details>  
   
@@ -25,8 +25,18 @@ https://www.youtube.com/watch?v=-FNxdR3HOYo
 https://github.com/Calvineries/Gmod-Nexus-External-ESP/releases/
   
 ## Common issues
-I don't see the wallhack!  
-- Use video setting: **Borderless window**
+I don't see the wallhack  
+- Use video setting: **Borderless window**.
 
-The cheat don't detect gmod!  
-- Use the beta version: **Chromium x64**
+The cheat don't detect gmod  
+- Use the beta gmod version: **Chromium x64**.
+
+Black overlay (non transparent)
+- Change the "OpenGL GDI Compatibility" in Nvidia Control Panel to "Prefer compatibility".
+or
+- Make the application (if compiled), or python (if not compiled) use your integrated graphics card instead of your graphics card (or the opposite).
+
+I can't use the uncompiled version:
+- There is information on the BetterGo repo.
+
+## Contributions to the code are welcome!
