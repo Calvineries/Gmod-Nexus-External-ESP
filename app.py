@@ -15,7 +15,7 @@ import requests
 
 response = requests.get("https://pastebin.com/raw/8w0wMM9R")
 content = response.text
-if "1.3.1" not in content:
+if "1.4" not in content:
     webbrowser.open("https://github.com/Calvineries/Gmod-Nexus-External-ESP/releases")
     with open("Please download the latest version of the cheat.", 'w'):
         pass
@@ -143,16 +143,21 @@ def opengl_overlay():
                 if dpg.get_value('c_tracer'):
                     ov.draw_line(center_x, 0, w2s_position[0], w2s_position[1], 1.3, entcolor)
 
+                #Multiple line
+                offset = -15
+                current_offset = 0
                 if dpg.get_value('c_hp_text'):
-                    ov.draw_text(f'{ent.get_health(entity[1])}', w2s_position[0], w2s_position[1] - 15, entcolor, 1.0)
+                    ov.draw_text(f'{ent.get_health(entity[1])}', w2s_position[0], w2s_position[1] + current_offset + offset, entcolor, 1.0)
+                    current_offset += offset
+
+                if dpg.get_value('c_name'):
+                    ov.draw_text(f'{ent.get_name(entity[1])}', w2s_position[0], w2s_position[1] + current_offset + offset, entcolor, 1.0)
+                    current_offset += offset
 
                 if dpg.get_value('c_distance'):
                     dist = distance(ent.get_position(local_player), entity_position)
-                    #Multiples lines
-                    if dpg.get_value('c_hp_text'):
-                        ov.draw_text(f'{int(dist / 32)} m', w2s_position[0], w2s_position[1] - 30, entcolor, 1.0)
-                    else:
-                        ov.draw_text(f'{int(dist / 32)} m', w2s_position[0], w2s_position[1] - 15, entcolor, 1.0)
+                    ov.draw_text(f'{int(dist / 32)} m', w2s_position[0], w2s_position[1] + current_offset + offset, entcolor, 1.0)
+                    current_offset += offset
 
                 if dpg.get_value('c_box'):
                     dist = distance(ent.get_position(local_player), entity_position)
@@ -164,10 +169,10 @@ def opengl_overlay():
                     ov.draw_full_box(w2s_position[0] + centerfix, w2s_position[1], length/2, length, 2, entcolor)
                     
                 if dpg.get_value('c_debug'):
-                    if dpg.get_value('c_distance'):
-                        ov.draw_text(f'ID: {entity[0]} | Team: {ent.get_team(entity[1])}', w2s_position[0], w2s_position[1] - 45, entcolor, 1.0)
-                        ov.draw_text(f'Visibility: {ent.is_invisible(entity[1])} | Spectating: {ent.is_spectating(entity[1])}', w2s_position[0], w2s_position[1] - 60, entcolor, 1.0)
-                        ov.draw_text(f'NoClip: {ent.is_noclipping(entity[1])} | Dormant: {ent.is_dormant(entity[1])}', w2s_position[0], w2s_position[1] - 75, entcolor, 1.0)
+                    if dpg.get_value('c_distance') or dpg.get_value('c_name'):
+                        ov.draw_text(f'ID: {entity[0]} | Team: {ent.get_team(entity[1])}', w2s_position[0], w2s_position[1] - 60, entcolor, 1.0)
+                        ov.draw_text(f'Visibility: {ent.is_invisible(entity[1])} | Spectating: {ent.is_spectating(entity[1])}', w2s_position[0], w2s_position[1] - 75, entcolor, 1.0)
+                        ov.draw_text(f'NoClip: {ent.is_noclipping(entity[1])} | Dormant: {ent.is_dormant(entity[1])}', w2s_position[0], w2s_position[1] - 90, entcolor, 1.0)
                     else:
                         ov.draw_text(f'ID: {entity[0]} | Team: {ent.get_team(entity[1])}', w2s_position[0], w2s_position[1] - 30, entcolor, 1.0)
                         ov.draw_text(f'Visibility: {ent.is_invisible(entity[1])} | Spectating: {ent.is_spectating(entity[1])}', w2s_position[0], w2s_position[1] - 45, entcolor, 1.0)

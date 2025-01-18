@@ -54,6 +54,7 @@ m_iTeamNum = 0xD4
 m_fFlags = 0x440
 m_iObserverMode = 0x2c8c
 m_hObserverTarget = 0x2c90
+m_szCustomName = 0x3704
 
 #=Dormant
 m_nRenderMode = 0xB4

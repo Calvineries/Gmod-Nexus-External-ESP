@@ -1,6 +1,7 @@
 import offsets, struct
 from helper import *
 from gui import *
+from unidecode import unidecode
 
 class Entity():
     def __init__(self, mem) -> None:
@@ -25,6 +26,10 @@ class Entity():
 
     def get_team(self, entity: int) -> int:
         return self.mem.game_handle.read_int(entity + offsets.m_iTeamNum)
+    
+    def get_name(self, entity: int) -> str:
+        name = self.mem.game_handle.read_string(entity + offsets.m_szCustomName)
+        return unidecode(name)
 
     def is_dormant(self, entity: int) -> int:
         return self.mem.game_handle.read_int(entity + offsets.m_nRenderMode)

@@ -36,6 +36,7 @@ class GUI():
                     with dpg.tooltip("c_tracer"):
                         dpg.add_text("Draws tracer lines to players")
                     dpg.add_checkbox(label='HP', tag='c_hp_text', default_value=True)
+                    dpg.add_checkbox(label='Name', tag='c_name', default_value=True)
                     dpg.add_checkbox(label='Distance', tag='c_distance')
                     dpg.add_checkbox(label='Crosshair', tag='c_crosshair', default_value=True)
                     with dpg.tooltip("c_crosshair"):
@@ -95,7 +96,7 @@ class GUI():
 
                 with dpg.tab(label='About'):
                     dpg.add_text("[Nexus External ESP]")
-                    dpg.add_text("Version: 1.3.1")
+                    dpg.add_text("Version: 1.4")
                     dpg.add_text(f"Gmod version: {offsets.gversion}")
                     dpg.add_text("")
                     dpg.add_text("© Calvineries / Calvin Honecker\n(Forked from BetterGo of OpsecGuy.)")
