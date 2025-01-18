@@ -245,7 +245,7 @@ def bhop():
                 while ctypes.windll.user32.GetAsyncKeyState(0x20):
                     if ent.is_noclipping(lp.local_player()) == "0xff00":
                         bhopstate = mem.game_handle.read_int(lp.local_player() + offsets.m_fFlags)
-                        if bhopstate == 257 or bhopstate == 33025:
+                        if bhopstate == 257 or bhopstate == 263 or bhopstate == 33025 or bhopstate == 1280 or bhopstate == 1281:
                             lp.force_jump(5)
                         else:
                             lp.force_jump(4)
