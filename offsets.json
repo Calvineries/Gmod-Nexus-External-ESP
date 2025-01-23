@@ -1,8 +1,8 @@
 {
     "dwEntityList": "0x94ae98",
     "dwLocalPlayer": "0x929150",
-    "dwViewMatrix": "0x732988",
-    "MaxOnlinePlayers": "0x5A85D8",
+    "dwViewMatrix": "0x731988",
+    "MaxOnlinePlayers": "0x5A75D8",
 
     "screengrab": "0x5a8320",
     "dwForceAttack": "0xa186b0",
