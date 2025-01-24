@@ -79,7 +79,8 @@ def opengl_overlay():
                     spectate_id = mem.game_handle.read_longlong(mem.client_dll + offsets.dwEntityList + (ent.spectating_target(entity[1]) - 1) * 0x20)
                     if spectate_id == lp.local_player():
                         current_spectated = True
-
+                    else:
+                        current_spectated = False
 
 
                 if ent.get_health(entity[1]) <= 0:
