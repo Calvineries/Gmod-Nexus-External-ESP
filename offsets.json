@@ -1,12 +1,12 @@
 {
-    "dwEntityList": "0x94ae98",
-    "dwLocalPlayer": "0x929150",
-    "dwViewMatrix": "0x731988",
-    "MaxOnlinePlayers": "0x5A75D8",
+    "dwEntityList": "0x94af18",
+    "dwLocalPlayer": "0x9291d0",
+    "dwViewMatrix": "0x732988",
+    "MaxOnlinePlayers": "0x5A85D8",
 
     "screengrab": "0x5a7320",
-    "dwForceAttack": "0xa186b0",
-    "dwForceJump": "0xa186a0",
+    "dwForceAttack": "0xa18730",
+    "dwForceJump": "0xa18720",
     "m_angRotation": "0x5C7EDC",
     "mat_fullbright": "0x20E50B8",
 
