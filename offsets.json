@@ -1,12 +1,12 @@
 {
-    "dwEntityList": "0x94af18",
-    "dwLocalPlayer": "0x9291d0",
+    "dwEntityList": "0x94bf18",
+    "dwLocalPlayer": "0x92a1d0",
     "dwViewMatrix": "0x732988",
     "MaxOnlinePlayers": "0x5A85D8",
 
     "screengrab": "0x5a8320",
-    "dwForceAttack": "0xa18730",
-    "dwForceJump": "0xa18720",
+    "dwForceAttack": "0xa19730",
+    "dwForceJump": "0xa19720",
     "m_angRotation": "0x5C8EDC",
     "mat_fullbright": "0x20E50B8",
 
