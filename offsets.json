@@ -4,11 +4,11 @@
     "dwViewMatrix": "0x735988",
     "MaxOnlinePlayers": "0x5AB5D8",
 
-    "screengrab": "0x5a8320",
+    "screengrab": "0x5ab320",
     "dwForceAttack": "0xa1a730",
     "dwForceJump": "0xa1a720",
-    "m_angRotation": "0x5C8EDC",
-    "mat_fullbright": "0x20E50B8",
+    "m_angRotation": "0x5CBEDC",
+    "mat_fullbright": "0x20E60B8",
 
     "m_iIDEntIndex": "0x36C0",
 
