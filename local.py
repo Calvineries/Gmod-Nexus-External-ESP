@@ -18,10 +18,10 @@ class LocalPlayer():
         self.mem.game_handle.write_uint(self.mem.client_dll + offsets.dwForceJump, value)
 
     def mat_fullbright(self) -> None:
-        if hex(self.mem.game_handle.read_short(self.mem.materialsystem_dll + offsets.mat_fullbright)) == "0x5060":
-            self.mem.game_handle.write_short(self.mem.materialsystem_dll + offsets.mat_fullbright, 0x5061)
+        if self.mem.game_handle.read_bytes(self.mem.materialsystem_dll + offsets.mat_fullbright, 1) == b"\x60":
+            self.mem.game_handle.write_bytes(self.mem.materialsystem_dll + offsets.mat_fullbright, b"\x61", 1)
         else:
-            self.mem.game_handle.write_short(self.mem.materialsystem_dll + offsets.mat_fullbright, 0x5060)
+            self.mem.game_handle.write_bytes(self.mem.materialsystem_dll + offsets.mat_fullbright, b"\x60", 1)
 
     def view_matrix(self) -> Vector3:
         view_matrix_base = self.mem.game_handle.read_longlong(self.mem.engine_dll + offsets.dwViewMatrix) + 0x2D4
