@@ -19,7 +19,7 @@ class Entity():
             pass
 
     def get_server_slots(self) -> int:
-        return self.mem.game_handle.read_int(self.mem.engine_dll + offsets.MaxOnlinePlayers)
+        return self.mem.game_handle.read_int(self.mem.engine_dll + offsets.server_slots)
 
     def get_health(self, entity: int) -> int:
         return self.mem.game_handle.read_int(entity + offsets.m_iHealth)

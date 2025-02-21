@@ -96,8 +96,8 @@ class GUI():
 
                 with dpg.tab(label='About'):
                     dpg.add_text("[Nexus External ESP]")
-                    dpg.add_text("Version: 1.4")
-                    dpg.add_text(f"Gmod version: {offsets.gversion}")
+                    dpg.add_text("Version: 1.4.1")
+                    dpg.add_text(f"Updated on: {offsets.gversion}")
                     dpg.add_text("")
                     dpg.add_text("© Calvineries / Calvin Honecker\n(Forked from BetterGo of OpsecGuy.)")
                     dpg.add_text("")
