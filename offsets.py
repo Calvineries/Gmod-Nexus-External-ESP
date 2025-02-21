@@ -8,13 +8,14 @@ try:
     dwEntityList = int(githuboffsets["dwEntityList"], 16)
     dwLocalPlayer = int(githuboffsets["dwLocalPlayer"], 16)
     dwViewMatrix = int(githuboffsets["dwViewMatrix"], 16)
-    MaxOnlinePlayers = int(githuboffsets["MaxOnlinePlayers"], 16)
+    server_slots = int(githuboffsets["server_slots"], 16)
     screengrab = int(githuboffsets["screengrab"], 16)
     dwForceAttack = int(githuboffsets["dwForceAttack"], 16)
     dwForceJump = int(githuboffsets["dwForceJump"], 16)
     m_angRotation = int(githuboffsets["m_angRotation"], 16)
     mat_fullbright = int(githuboffsets["mat_fullbright"], 16)
     m_iIDEntIndex = int(githuboffsets["m_iIDEntIndex"], 16)
+    m_szCustomName = int(githuboffsets["m_szCustomName"], 16)
     gversion = str(githuboffsets["gversion"])
 except:
     pass
@@ -28,8 +29,8 @@ try:
         dwLocalPlayer = int(data["dwLocalPlayer"], 16)
     if data["dwViewMatrix"] != "":
         dwViewMatrix = int(data["dwViewMatrix"], 16)
-    if data["MaxOnlinePlayers"] != "":
-        MaxOnlinePlayers = int(data["MaxOnlinePlayers"], 16)
+    if data["server_slots"] != "":
+        server_slots = int(data["server_slots"], 16)
     if data["screengrab"] != "":
         screengrab = int(data["screengrab"], 16)
     if data["dwForceAttack"] != "":
@@ -42,7 +43,9 @@ try:
         mat_fullbright = int(data["mat_fullbright"], 16)
     if data["m_iIDEntIndex"] != "":
         m_iIDEntIndex = int(data["m_iIDEntIndex"], 16)
-    if data["dwEntityList"] or data["dwLocalPlayer"] or data["dwViewMatrix"] or data["MaxOnlinePlayers"] or data["screengrab"] or data["dwForceAttack"] or data["dwForceJump"] or data["m_angRotation"] or data["mat_fullbright"] != "":
+    if data["m_szCustomName"] != "":
+        m_szCustomName = int(data["m_szCustomName"], 16)
+    if data["dwEntityList"] or data["dwLocalPlayer"] or data["dwViewMatrix"] or data["server_slots"] or data["screengrab"] or data["dwForceAttack"] or data["dwForceJump"] or data["m_angRotation"] or data["mat_fullbright"] or data["m_iIDEntIndex"] or data["m_szCustomName"] != "":
         gversion = "Custom offsets"
 except FileNotFoundError:
     pass
@@ -54,7 +57,6 @@ m_iTeamNum = 0xD4
 m_fFlags = 0x440
 m_iObserverMode = 0x2c8c
 m_hObserverTarget = 0x2c90
-m_szCustomName = 0x3704
 
 #=Dormant
 m_nRenderMode = 0xB4
