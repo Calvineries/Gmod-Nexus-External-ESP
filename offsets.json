@@ -2,7 +2,7 @@
     "dwEntityList": "0x9500d8",
     "dwLocalPlayer": "0x92e270",
     "dwViewMatrix": "0x735988",
-    "MaxOnlinePlayers": "0x5AB5D8",
+    "server_slots": "0x5AB5D8",
 
     "screengrab": "0x5ab320",
     "dwForceAttack": "0xa1d8f0",
@@ -11,7 +11,7 @@
     "mat_fullbright": "0x20E60B8",
 
     "m_iIDEntIndex": "0x36D0",
-    "m_szCustomName": "0x3714"
+    "m_szCustomName": "0x3714",
 
-    "gversion": "December 2024"
+    "gversion": "February 21, 2025"
 }
