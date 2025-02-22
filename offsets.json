@@ -12,8 +12,8 @@
 
     "m_iIDEntIndex": "0x36D0",
     "m_szCustomName": "0x3714",
-    "m_iObserverMode" = "0x2C9C",
-    "m_hObserverTarget" = "0x2CA0",
+    "m_iObserverMode": "0x2C9C",
+    "m_hObserverTarget": "0x2CA0",
 
     "gversion": "February 22, 2025"
 }
