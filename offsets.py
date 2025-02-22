@@ -16,6 +16,8 @@ try:
     mat_fullbright = int(githuboffsets["mat_fullbright"], 16)
     m_iIDEntIndex = int(githuboffsets["m_iIDEntIndex"], 16)
     m_szCustomName = int(githuboffsets["m_szCustomName"], 16)
+    m_iObserverMode = int(githuboffsets["m_iObserverMode"], 16)
+    m_hObserverTarget = int(githuboffsets["m_hObserverTarget"], 16)
     gversion = str(githuboffsets["gversion"])
 except:
     pass
@@ -45,7 +47,11 @@ try:
         m_iIDEntIndex = int(data["m_iIDEntIndex"], 16)
     if data["m_szCustomName"] != "":
         m_szCustomName = int(data["m_szCustomName"], 16)
-    if data["dwEntityList"] or data["dwLocalPlayer"] or data["dwViewMatrix"] or data["server_slots"] or data["screengrab"] or data["dwForceAttack"] or data["dwForceJump"] or data["m_angRotation"] or data["mat_fullbright"] or data["m_iIDEntIndex"] or data["m_szCustomName"] != "":
+    if data["m_iObserverMode"] != "":
+        m_szCustomName = int(data["m_iObserverMode"], 16)
+    if data["m_hObserverTarget"] != "":
+        m_szCustomName = int(data["m_hObserverTarget"], 16)
+    if data["dwEntityList"] or data["dwLocalPlayer"] or data["dwViewMatrix"] or data["server_slots"] or data["screengrab"] or data["dwForceAttack"] or data["dwForceJump"] or data["m_angRotation"] or data["mat_fullbright"] or data["m_iIDEntIndex"] or data["m_szCustomName"] or data["m_iObserverMode"] or data["m_hObserverTarget"] != "":
         gversion = "Custom offsets"
 except FileNotFoundError:
     pass
@@ -55,8 +61,6 @@ m_vecOrigin = 0x308
 m_iHealth = 0xC8
 m_iTeamNum = 0xD4
 m_fFlags = 0x440
-m_iObserverMode = 0x2c8c
-m_hObserverTarget = 0x2c90
 
 #=Dormant
 m_nRenderMode = 0xB4
