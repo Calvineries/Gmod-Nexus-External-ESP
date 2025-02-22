@@ -48,9 +48,9 @@ try:
     if data["m_szCustomName"] != "":
         m_szCustomName = int(data["m_szCustomName"], 16)
     if data["m_iObserverMode"] != "":
-        m_szCustomName = int(data["m_iObserverMode"], 16)
+        m_iObserverMode = int(data["m_iObserverMode"], 16)
     if data["m_hObserverTarget"] != "":
-        m_szCustomName = int(data["m_hObserverTarget"], 16)
+        m_hObserverTarget = int(data["m_hObserverTarget"], 16)
     if data["dwEntityList"] or data["dwLocalPlayer"] or data["dwViewMatrix"] or data["server_slots"] or data["screengrab"] or data["dwForceAttack"] or data["dwForceJump"] or data["m_angRotation"] or data["mat_fullbright"] or data["m_iIDEntIndex"] or data["m_szCustomName"] or data["m_iObserverMode"] or data["m_hObserverTarget"] != "":
         gversion = "Custom offsets"
 except FileNotFoundError:
