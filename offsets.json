@@ -1,12 +1,12 @@
 {
-    "dwEntityList": "0x9500d8",
-    "dwLocalPlayer": "0x92e270",
-    "dwViewMatrix": "0x735988",
-    "server_slots": "0x5AB5D8",
+    "dwEntityList": "0x9510d8",
+    "dwLocalPlayer": "0x92f270",
+    "dwViewMatrix": "0x736988",
+    "server_slots": "0x5AC5D8",
 
     "screengrab": "0x5ab320",
-    "dwForceAttack": "0xa1d8f0",
-    "dwForceJump": "0xa1d8e0",
+    "dwForceAttack": "0xa1e8f0",
+    "dwForceJump": "0xa1e8e0",
     "m_angRotation": "0x5CBEDC",
     "mat_fullbright": "0x20E60B8",
 
