@@ -1,4 +1,14 @@
 # Gmod-Nexus-External-ESP  
+
+### A new version is coming!
+The current version will not receive any new features.  
+  
+I am currently working for a few days on a V2, a complete rewrite under another library.  
+This new version fixes almost all the flaws of the cheat (non-exhaustive list: automatic offsets by pattern scanning, no more flickering, ESP based on bones, ...)  
+The cheat will remain free and open source.  
+
+
+## About
 Nexus is an open-source Python external wallhack, triggerbot, aimassist and bhop compiled with PyInstaller **for GMOD x64**.  
 It's external : nothing is injected, no lua code is used/edited.  
   
@@ -33,6 +43,7 @@ The cheat don't detect gmod
 
 Black overlay (non transparent)
 - Change the "OpenGL GDI Compatibility" in Nvidia Control Panel to "Prefer compatibility".
+
 or
 - Make the application (if compiled), or python (if not compiled) use your integrated graphics card instead of your graphics card (or the opposite).
 
