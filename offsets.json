@@ -1,12 +1,12 @@
 {
-    "dwEntityList": "0x9510d8",
-    "dwLocalPlayer": "0x92f270",
+    "dwEntityList": "0x94b228",
+    "dwLocalPlayer": "0x9293c0",
     "dwViewMatrix": "0x736988",
     "server_slots": "0x5AC5D8",
 
     "screengrab": "0x5ac320",
-    "dwForceAttack": "0xa1e8f0",
-    "dwForceJump": "0xa1e8e0",
+    "dwForceAttack": "0xa18a40",
+    "dwForceJump": "0xa18a30",
     "m_angRotation": "0x5CCEDC",
     "mat_fullbright": "0x20E60B8",
 
@@ -15,5 +15,5 @@
     "m_iObserverMode": "0x2C9C",
     "m_hObserverTarget": "0x2CA0",
 
-    "gversion": "February 25, 2025"
+    "gversion": "February 26, 2025"
 }
