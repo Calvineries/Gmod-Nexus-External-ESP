@@ -1,0 +1,19 @@
+{
+    "dwEntityList": "0x94b108",
+    "dwLocalPlayer": "0x9293c0",
+    "dwViewMatrix": "0x736988",
+    "server_slots": "0x5AC5D8",
+
+    "screengrab": "0x5ac320",
+    "dwForceAttack": "0xa18a40",
+    "dwForceJump": "0xa18a30",
+    "m_angRotation": "0x5CCEDC",
+    "mat_fullbright": "0x20E60B8",
+
+    "m_iIDEntIndex": "0x36E8",
+    "m_szCustomName": "0x372C",
+    "m_iObserverMode": "0x2CA4",
+    "m_hObserverTarget": "0x2CA8",
+
+    "gversion": "February 26, 2025"
+}
