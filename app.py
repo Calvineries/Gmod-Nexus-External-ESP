@@ -70,9 +70,11 @@ def get_players():
         ent_addr = pm.r_int64(csgo_proc, game_module["base"] + Offsets.EntityList + i * 0x20)
         if ent_addr:
             ent = Entity(ent_addr, csgo_proc, game_module["base"])
-            if ent.name and "STEAM_" in ent.steamid:
-                players.append((ent.name, ent.steamid))
-
+            try:
+                if ent.name and "STEAM_" in ent.steamid:
+                    players.append((ent.name, ent.steamid))
+            except:
+                pass
     return players
 
 def pattern_scan(dll, pattern, mask):
