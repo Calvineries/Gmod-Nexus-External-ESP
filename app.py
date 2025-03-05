@@ -4,6 +4,19 @@ from gui import *
 import threading
 import win32api
 import struct
+import json
+
+class Offsets:
+    LocalPlayer = 0x0
+    EntityList = 0x94b108
+    ViewMatrix = 0x736988
+    ForceJump = 0xa18910
+    MatFullbright = 0x20E60B8
+    Crosshair = 0x36E8
+    BoneMatrix = 0x1A98
+    m_hObserverTarget = 0x2CB8
+    Playername = 0x372C
+    SteamID = 0x37B0
 
 class Colors:
     red = pm.get_color("#FF0000")
@@ -12,8 +25,6 @@ class Colors:
     white = pm.get_color("white")
     blue = pm.get_color("#0000FF")
     light_blue = pm.get_color("#00FFFF")
-
-
     hud = pm.get_color("#f5f5ff")
     hud_fade = pm.fade_color(pm.get_color("black"), 0.6)
 
@@ -34,7 +45,6 @@ class Entity:
         self.pos = pm.r_vec3(self.mem, self.addr + 0x308)
         self.bone_base = pm.r_int64(self.mem, self.addr + Offsets.BoneMatrix)
         self.get_spectated_player = pm.r_uint(self.mem, self.addr + Offsets.m_hObserverTarget) & 0xFFF
-        
 
     def bone_pos(self, bone_id):
         return pm.vec3(
@@ -49,9 +59,30 @@ class Local:
         self.addr = addr
         self.mem = mem
         self.gmod = gmod
-
         self.pos = pm.r_vec3(self.mem, self.addr + 0x308)
 
+def get_players():
+    csgo_proc = pm.open_process("gmod.exe")
+    game_module = pm.get_module(csgo_proc, "client.dll")
+    players = []
+    
+    for i in range(0, 128):
+        ent_addr = pm.r_int64(csgo_proc, game_module["base"] + Offsets.EntityList + i * 0x20)
+        if ent_addr:
+            ent = Entity(ent_addr, csgo_proc, game_module["base"])
+            if ent.name and "STEAM_" in ent.steamid:
+                players.append((ent.name, ent.steamid))
+
+    return players
+
+def pattern_scan(dll, pattern, mask):
+    proc = pm.open_process("gmod.exe")
+    module = pm.get_module(proc, dll)
+    data = pm.r_bytes(proc, module["base"], module["size"])
+    for i in range(module["size"] - len(pattern)):
+        if all(mask[j] != 'x' or data[i + j] == pattern[j] for j in range(len(pattern))):
+            raw_bytes = pm.r_bytes(proc, module["base"] + i + 3, 4)
+            return (module["base"] + i + 7) + struct.unpack('<i', raw_bytes)[0]
 
 def start():
     gui.init_menu()
@@ -351,44 +382,8 @@ def main():
                 if pm.r_byte(csgo_proc, materialsystem["base"] + Offsets.MatFullbright) == 97:
                     pm.w_byte(csgo_proc, materialsystem["base"] + Offsets.MatFullbright, 96)
 
-def get_players():
-    csgo_proc = pm.open_process("gmod.exe")
-    game_module = pm.get_module(csgo_proc, "client.dll")
-    players = []
-    
-    for i in range(0, 128):
-        ent_addr = pm.r_int64(csgo_proc, game_module["base"] + Offsets.EntityList + i * 0x20)
-        if ent_addr:
-            ent = Entity(ent_addr, csgo_proc, game_module["base"])
-            if ent.name and "STEAM_" in ent.steamid:
-                players.append((ent.name, ent.steamid))
-
-    return players
-
-def pattern_scan(dll, pattern, mask):
-    handLefte = pm.open_process("gmod.exe")
-    module = pm.get_module(handLefte, dll)
-    data = pm.r_bytes(handLefte, module["base"], module["size"])
-    for i in range(module["size"] - len(pattern)):
-        if all(mask[j] != 'x' or data[i + j] == pattern[j] for j in range(len(pattern))):
-            raw_bytes = pm.r_bytes(handLefte, module["base"] + i + 3, 4)
-
-            return (module["base"] + i + 7) + struct.unpack('<i', raw_bytes)[0]
-
-
 if __name__ == "__main__":
     LocalPlayer = pattern_scan("client.dll", b"\x48\x8b\x05\xae\xae\xae\xae\xc3\xcc\xcc\xcc\xcc\xcc\xcc\xcc\xcc\x48\x8b\x05", "xxx????xxxxxxxxxxxx")
-    class Offsets:
-        LocalPlayer = LocalPlayer
-        EntityList = 0x94b108
-        ViewMatrix = 0x736988
-        ForceJump = 0xa18910
-        MatFullbright = 0x20E60B8
-        Crosshair = 0x36E8
-        BoneMatrix = 0x1A98
-        m_hObserverTarget = 0x2CB8
-        Playername = 0x372C
-        SteamID = 0x37B0
-
+    Offsets.LocalPlayer = LocalPlayer
     gui = GUI()
     start()
