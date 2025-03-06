@@ -62,28 +62,29 @@ class Local:
         self.pos = pm.r_vec3(self.mem, self.addr + 0x308)
 
 def get_players():
-    csgo_proc = pm.open_process("gmod.exe")
-    game_module = pm.get_module(csgo_proc, "client.dll")
+    gmod_exe = pm.open_process("gmod.exe")
+    client_dll = pm.get_module(gmod_exe, "client.dll")
     players = []
     
     for i in range(0, 128):
-        ent_addr = pm.r_int64(csgo_proc, game_module["base"] + Offsets.EntityList + i * 0x20)
+        ent_addr = pm.r_int64(gmod_exe, client_dll["base"] + Offsets.EntityList + i * 0x20)
         if ent_addr:
-            ent = Entity(ent_addr, csgo_proc, game_module["base"])
+            ent = Entity(ent_addr, gmod_exe, client_dll["base"])
             try:
                 if ent.name and "STEAM_" in ent.steamid:
                     players.append((ent.name, ent.steamid))
             except:
                 pass
+
     return players
 
 def pattern_scan(dll, pattern, mask):
-    proc = pm.open_process("gmod.exe")
-    module = pm.get_module(proc, dll)
-    data = pm.r_bytes(proc, module["base"], module["size"])
+    gmod_exe = pm.open_process("gmod.exe")
+    module = pm.get_module(gmod_exe, dll)
+    data = pm.r_bytes(gmod_exe, module["base"], module["size"])
     for i in range(module["size"] - len(pattern)):
         if all(mask[j] != 'x' or data[i + j] == pattern[j] for j in range(len(pattern))):
-            raw_bytes = pm.r_bytes(proc, module["base"] + i + 3, 4)
+            raw_bytes = pm.r_bytes(gmod_exe, module["base"] + i + 3, 4)
             return (module["base"] + i + 7) + struct.unpack('<i', raw_bytes)[0]
 
 def start():
@@ -92,10 +93,10 @@ def start():
     dpg.start_dearpygui()
 
 def main():
-    csgo_proc = pm.open_process("gmod.exe")
-    game_module = pm.get_module(csgo_proc, "client.dll")
-    engine_module = pm.get_module(csgo_proc, "engine.dll")
-    materialsystem = pm.get_module(csgo_proc, "materialsystem.dll")
+    gmod_exe = pm.open_process("gmod.exe")
+    client_dll = pm.get_module(gmod_exe, "client.dll")
+    engine_dll = pm.get_module(gmod_exe, "engine.dll")
+    materialsystem_dll = pm.get_module(gmod_exe, "materialsystem.dll")
 
     pm.overlay_init("Garry's Mod (x64)", fps=60)
 
@@ -132,18 +133,18 @@ def main():
                 pm.draw_text(text, start_x + 7, y_offset + 4, 20, Colors.hud)
 
         try:
-            local_player_addr = pm.r_int64(csgo_proc, Offsets.LocalPlayer)
+            local_player_addr = pm.r_int64(gmod_exe, Offsets.LocalPlayer)
         except:
             continue
         if local_player_addr:
-            view_matrix_base = pm.r_int64(csgo_proc, engine_module["base"] + Offsets.ViewMatrix) + 0x2D4
-            view_matrix = pm.r_floats(csgo_proc, view_matrix_base, 16)
+            view_matrix_base = pm.r_int64(gmod_exe, engine_dll["base"] + Offsets.ViewMatrix) + 0x2D4
+            view_matrix = pm.r_floats(gmod_exe, view_matrix_base, 16)
             for i in range(0, 128):
-                ent_addr = pm.r_int64(csgo_proc, game_module["base"] + Offsets.EntityList + i * 0x20)
+                ent_addr = pm.r_int64(gmod_exe, client_dll["base"] + Offsets.EntityList + i * 0x20)
                 if ent_addr == local_player_addr:
                     local_id = i
                 if ent_addr > 0 and ent_addr != local_player_addr:
-                    ent = Entity(ent_addr, csgo_proc, game_module["base"])
+                    ent = Entity(ent_addr, gmod_exe, client_dll["base"])
                     try:
                         if not dpg.get_value('c_onlyplayer') or "STEAM_" in ent.steamid:
                             if dpg.get_value('c_spectate'):
@@ -286,7 +287,7 @@ def main():
 
                                         else:
                                             try:
-                                                local = Local(local_player_addr, csgo_proc, game_module["base"])
+                                                local = Local(local_player_addr, gmod_exe, client_dll["base"])
                                                 dist = pm.vec3_distance(local.pos, ent.pos)
                                                 width = 48000 / dist
                                                 center = width / -2
@@ -340,14 +341,14 @@ def main():
         if dpg.get_value('c_crosshair'):
             try:
                 if dpg.get_value('c_triggerbot'):
-                    target = pm.r_int(csgo_proc, local_player_addr + Offsets.Crosshair)
+                    target = pm.r_int(gmod_exe, local_player_addr + Offsets.Crosshair)
                     if target <= 128 and target != 0:
                         color = Colors.blue
                         pm.mouse_click(button="left")
                     else:
                         color = Colors.light_blue
                 else:
-                    target = pm.r_int(csgo_proc, local_player_addr + Offsets.Crosshair)
+                    target = pm.r_int(gmod_exe, local_player_addr + Offsets.Crosshair)
                     if target <= 128 and target != 0:
                         color = Colors.red
                     else:
@@ -369,20 +370,20 @@ def main():
             if dpg.get_value('c_bhop'):
                 if win32api.GetAsyncKeyState(0x20) == 0:
                     continue
-                noclipping = hex(pm.r_int(csgo_proc, local_player_addr + 0x84))
+                noclipping = hex(pm.r_int(gmod_exe, local_player_addr + 0x84))
                 if noclipping == "0xff00":
-                    flag = pm.r_int(csgo_proc, local_player_addr + 0x440)
+                    flag = pm.r_int(gmod_exe, local_player_addr + 0x440)
                     if flag == 257 or flag == 263 or flag == 33025 or flag == 1280 or flag == 1281:
-                        pm.w_int(csgo_proc, game_module["base"] + Offsets.ForceJump, 5)
+                        pm.w_int(gmod_exe, client_dll["base"] + Offsets.ForceJump, 5)
                     else:
-                        pm.w_int(csgo_proc, game_module["base"] + Offsets.ForceJump, 4)
+                        pm.w_int(gmod_exe, client_dll["base"] + Offsets.ForceJump, 4)
 
             if dpg.get_value('c_fullbright'):
-                if pm.r_byte(csgo_proc, materialsystem["base"] + Offsets.MatFullbright) == 96:
-                    pm.w_byte(csgo_proc, materialsystem["base"] + Offsets.MatFullbright, 97)
+                if pm.r_byte(gmod_exe, materialsystem_dll["base"] + Offsets.MatFullbright) == 96:
+                    pm.w_byte(gmod_exe, materialsystem_dll["base"] + Offsets.MatFullbright, 97)
             else:
-                if pm.r_byte(csgo_proc, materialsystem["base"] + Offsets.MatFullbright) == 97:
-                    pm.w_byte(csgo_proc, materialsystem["base"] + Offsets.MatFullbright, 96)
+                if pm.r_byte(gmod_exe, materialsystem_dll["base"] + Offsets.MatFullbright) == 97:
+                    pm.w_byte(gmod_exe, materialsystem_dll["base"] + Offsets.MatFullbright, 96)
 
 if __name__ == "__main__":
     LocalPlayer = pattern_scan("client.dll", b"\x48\x8b\x05\xae\xae\xae\xae\xc3\xcc\xcc\xcc\xcc\xcc\xcc\xcc\xcc\x48\x8b\x05", "xxx????xxxxxxxxxxxx")
