@@ -9,9 +9,9 @@ from unidecode import unidecode
 
 class Offsets:
     LocalPlayer = 0x0
-    EntityList = 0x94b108
+    EntityList = 0x94c188
     ViewMatrix = 0x736988
-    ForceJump = 0xa18910
+    ForceJump = 0xa19990
     MatFullbright = 0x20E60B8
     Crosshair = 0x36E8
     BoneMatrix = 0x1A98
