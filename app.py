@@ -5,6 +5,7 @@ import threading
 import win32api
 import struct
 import json
+from unidecode import unidecode
 
 class Offsets:
     LocalPlayer = 0x0
@@ -40,7 +41,7 @@ class Entity:
         self.dormant = pm.r_int(self.mem, self.addr + 0xB4)
         self.noclipping = hex(pm.r_int(self.mem, self.addr + 0x84))
         self.visiblity = hex(pm.r_int64(self.mem, self.addr + 0x88))
-        self.name = pm.r_string(self.mem, self.addr + Offsets.Playername)
+        self.name = unidecode(pm.r_string(self.mem, self.addr + Offsets.Playername))
         self.steamid = pm.r_string(self.mem, self.addr + Offsets.SteamID)
         self.pos = pm.r_vec3(self.mem, self.addr + 0x308)
         self.bone_base = pm.r_int64(self.mem, self.addr + Offsets.BoneMatrix)
