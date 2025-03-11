@@ -38,6 +38,10 @@ The cheat doesn't detect gmod:
 In Singleplayer the ESP doesn't work:
 - Uncheck "Only Real Players"
 
+The overlay is black (non transparent):
+- Solution 1: Change the "OpenGL GDI Compatibility" in Nvidia Control Panel to "Prefer compatibility".
+- Solution 2: Make the application (if compiled), or python (if not compiled) use your integrated graphics card instead of your graphics card (or the opposite).
+
 Where is the old version:
 - https://github.com/Calvineries/Gmod-Nexus-External-ESP/tree/v1-(old-version)
 
