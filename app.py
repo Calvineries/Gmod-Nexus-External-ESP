@@ -8,15 +8,15 @@ import json
 
 class Offsets:
     LocalPlayer = 0x0
-    EntityList = 0x94c188
-    ViewMatrix = 0x736988
-    ForceJump = 0xa19990
+    EntityList = 0x9503d8
+    ViewMatrix = 0x745c88
+    ForceJump = 0xa1dcb0
     MatFullbright = 0x20E60B8
-    Crosshair = 0x36E8
+    Crosshair = 0x3700
     BoneMatrix = 0x1A98
-    m_hObserverTarget = 0x2CB8
-    Playername = 0x372C
-    SteamID = 0x37B0
+    m_hObserverTarget = 0x2CC8
+    Playername = 0x3744
+    SteamID = 0x37C8
 
 class Colors:
     red = pm.get_color("#FF0000")
