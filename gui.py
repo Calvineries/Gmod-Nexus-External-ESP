@@ -82,6 +82,8 @@ class GUI():
                     dpg.add_checkbox(label='Hide Invisible', tag='c_hideinvisible')
                     dpg.add_checkbox(label='Hide Noclipping', tag='c_hidenoclipping')
                     dpg.add_checkbox(label='Only Real Players', tag='c_onlyplayer', default_value=True)
+                    with dpg.tooltip("c_onlyplayer"):
+                        dpg.add_text("Show only entities with a SteamID.\n\nAllows you to hide entities that are\nnot real players.\nMust be unchecked if you want to do\ntesting with bots.")
                     dpg.add_checkbox(label='Only Friends', tag='c_onlyfriends')
                     dpg.add_checkbox(label='Only Invisible', tag='c_showinvisible')
                     dpg.add_checkbox(label='Only Noclipping', tag='c_shownoclipping') 
@@ -97,23 +99,23 @@ class GUI():
 
                 with dpg.tab(label='Blatant'):
                     with dpg.group(horizontal=True):
-                        dpg.add_checkbox(label='Triggerbot       ', tag='c_triggerbot', enabled=False)
+                        dpg.add_checkbox(label='Triggerbot', tag='c_triggerbot', enabled=False)
                         with dpg.tooltip("c_triggerbot"):
                             dpg.add_text("Clicks for you when you are hovering over a target")
-                    dpg.add_checkbox(label='Bhop             ', tag='c_bhop', enabled=False)
+                    dpg.add_checkbox(label='Bhop', tag='c_bhop', enabled=False)
                     dpg.add_checkbox(label='Fullbright (detected)', tag='c_fullbright', enabled=False)
                     with dpg.tooltip("c_fullbright"):
                         dpg.add_text("Turns up brightness to see in the dark.\n\nYou can be detected very easily by many ways!")
                     dpg.add_text("")
                     dpg.add_text("Detected by some anticheats!", color=(240, 47, 28))
-                    dpg.add_checkbox(label='Enable writing to game memory', tag="blatantcheck", callback=enableblatant)
+                    dpg.add_checkbox(label='Enable writing to game memory and other sensitive features', tag="blatantcheck", callback=enableblatant)
                     with dpg.tooltip("blatantcheck"):
                         dpg.add_text("By default, Nexus External only lets you\nenable cheats that only read game memory,\nwhich is undetectable for a game like gmod.\n\nBy checking this box, you will be able to use\nother cheats that write to the game's memory,\ngood anticheats can detect this.")
                 
                 with dpg.tab(label='Config'):
                     dpg.add_checkbox(label='Notification when someone is spectating you', tag="c_spectate", default_value=True)
                     with dpg.tooltip("c_spectate"):
-                        dpg.add_text("Show a message below the crosshair\nif someone is spectating you.")
+                        dpg.add_text("Show a message if\nsomeone is spectating you.")
                     with dpg.group(horizontal=True):
                         dpg.add_text("ESP Method")
                         dpg.add_radio_button(tag="c_esp_method", items=['EntityPos', 'BonesPos (experimental)'], default_value="Normal", callback=bone_mode)
