@@ -127,9 +127,12 @@ class GUI():
 
                 with dpg.tab(label='About'):
                     dpg.add_text("[Nexus External ESP]")
-                    dpg.add_text("Version: 2.0.0 - beta 1")
-                    #dpg.add_text(f"Updated on")
-                    #dpg.add_text("")
+                    dpg.add_text("Version: 2.0.0 - beta 2")
+                    if "offline" in {app.Offsets.lastupdate}:
+                        dpg.add_text(f"Custom offsets mode.")
+                    else:
+                        dpg.add_text(f"Updated on: {app.Offsets.lastupdate}")
+                    dpg.add_text("")
                     dpg.add_text("© Calvineries / Calvin Honecker.")
                     dpg.add_text("")
                     dpg.add_text("This cheat is free. Resale = Scam!\nCe cheat est gratuit. Revente = Arnaque !", color=(240, 47, 28))

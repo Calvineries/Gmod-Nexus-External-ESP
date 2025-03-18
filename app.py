@@ -4,19 +4,55 @@ from gui import *
 import threading
 import win32api
 import json
+import requests
 
 class Offsets:
-    LocalPlayer = 0x92f720
-    EntityList = 0x951468
-    ViewMatrix = 0x745c88
-    ForceJump = 0xa1ed40
-    MatFullbright = 0x20E60B8
-    Crosshair = 0x3700
-    BoneMatrix = 0x1A98
-    m_hObserverTarget = 0x2CC8
-    Playername = 0x3744
-    SteamID = 0x37C8
-    
+    response = requests.get("https://raw.githubusercontent.com/Calvineries/Gmod-Nexus-External-ESP/refs/heads/master/offsets.json")
+    githuboffsets = json.loads(response.text)
+    try:
+        LocalPlayer = int(githuboffsets["LocalPlayer"], 16)
+        EntityList = int(githuboffsets["EntityList"], 16)
+        ViewMatrix = int(githuboffsets["ViewMatrix"], 16)
+        ForceJump = int(githuboffsets["ForceJump"], 16)
+        MatFullbright = int(githuboffsets["MatFullbright"], 16)
+        Crosshair = int(githuboffsets["Crosshair"], 16)
+        BoneMatrix = int(githuboffsets["BoneMatrix"], 16)
+        m_hObserverTarget = int(githuboffsets["m_hObserverTarget"], 16)
+        Playername = int(githuboffsets["Playername"], 16)
+        SteamID = int(githuboffsets["SteamID"], 16)
+        lastupdate = str(githuboffsets["lastupdate"])
+    except:
+        pass
+
+    try:
+        with open("custom_offsets.json", "r") as jsonfile:
+            data = json.load(jsonfile)
+        if data["LocalPlayer"] != "":
+            LocalPlayer = int(data["LocalPlayer"], 16)
+        if data["EntityList"] != "":
+            EntityList = int(data["EntityList"], 16)
+        if data["ViewMatrix"] != "":
+            ViewMatrix = int(data["ViewMatrix"], 16)
+        if data["ForceJump"] != "":
+            ForceJump = int(data["ForceJump"], 16)
+        if data["MatFullbright"] != "":
+            MatFullbright = int(data["MatFullbright"], 16)
+        if data["Crosshair"] != "":
+            Crosshair = int(data["Crosshair"], 16)
+        if data["BoneMatrix"] != "":
+            BoneMatrix = int(data["BoneMatrix"], 16)
+        if data["m_hObserverTarget"] != "":
+            m_hObserverTarget = int(data["m_hObserverTarget"], 16)
+        if data["Playername"] != "":
+            Playername = int(data["Playername"], 16)
+        if data["SteamID"] != "":
+            SteamID = int(data["SteamID"], 16)
+        if data["LocalPlayer"] or data["EntityList"] or data["ViewMatrix"] or data["ForceJump"] or data["MatFullbright"] or data["Crosshair"] or data["BoneMatrix"] or data["m_hObserverTarget"] or data["Playername"] or data["SteamID"] != "":
+            lastupdate = "offline"
+    except FileNotFoundError:
+        pass
+
+
 class Colors:
     red = pm.get_color("#FF0000")
     orange = pm.get_color("orange")
