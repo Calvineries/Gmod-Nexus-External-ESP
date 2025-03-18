@@ -1,0 +1,16 @@
+{
+    "LocalPlayer": "0x92f720",
+    "EntityList": "0x951468",
+    "dwViewMatrix": "0x745c88",
+
+    "ForceJump": "0xa1ed40",
+    "MatFullbright": "0x20E60B8",
+
+    "Crosshair": "0x3700",
+    "BoneMatrix": "0x1A98",
+    "m_hObserverTarget": "0x2CC8",
+    "Playername": "0x3744",
+    "SteamID": "0x37C8",
+
+    "lastupdate": "March 18, 2025"
+}
