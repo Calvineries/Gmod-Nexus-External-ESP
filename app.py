@@ -8,9 +8,9 @@ import json
 
 class Offsets:
     LocalPlayer = 0x0
-    EntityList = 0x9503d8
+    EntityList = 0x951468
     ViewMatrix = 0x745c88
-    ForceJump = 0xa1dcb0
+    ForceJump = 0xa1ed40
     MatFullbright = 0x20E60B8
     Crosshair = 0x3700
     BoneMatrix = 0x1A98
