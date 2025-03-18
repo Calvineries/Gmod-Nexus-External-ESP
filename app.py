@@ -3,10 +3,7 @@ import dearpygui.dearpygui as dpg
 from gui import *
 import threading
 import win32api
-import struct
 import json
-from unidecode import unidecode
-
 
 class Offsets:
     LocalPlayer = 0x92f720
