@@ -5,9 +5,11 @@ import threading
 import win32api
 import struct
 import json
+from unidecode import unidecode
+
 
 class Offsets:
-    LocalPlayer = 0x0
+    LocalPlayer = 0x92f720
     EntityList = 0x951468
     ViewMatrix = 0x745c88
     ForceJump = 0xa1ed40
@@ -17,7 +19,7 @@ class Offsets:
     m_hObserverTarget = 0x2CC8
     Playername = 0x3744
     SteamID = 0x37C8
-
+    
 class Colors:
     red = pm.get_color("#FF0000")
     orange = pm.get_color("orange")
@@ -78,15 +80,6 @@ def get_players():
 
     return players
 
-def pattern_scan(dll, pattern, mask):
-    gmod_exe = pm.open_process("gmod.exe")
-    module = pm.get_module(gmod_exe, dll)
-    data = pm.r_bytes(gmod_exe, module["base"], module["size"])
-    for i in range(module["size"] - len(pattern)):
-        if all(mask[j] != 'x' or data[i + j] == pattern[j] for j in range(len(pattern))):
-            raw_bytes = pm.r_bytes(gmod_exe, module["base"] + i + 3, 4)
-            return (module["base"] + i + 7) + struct.unpack('<i', raw_bytes)[0]
-
 def start():
     gui.init_menu()
     threading.Thread(target=main, name='main', daemon=True).start()
@@ -133,7 +126,7 @@ def main():
                 pm.draw_text(text, start_x + 7, y_offset + 4, 20, Colors.hud)
 
         try:
-            local_player_addr = pm.r_int64(gmod_exe, Offsets.LocalPlayer)
+            local_player_addr = pm.r_int64(gmod_exe, client_dll["base"] + Offsets.LocalPlayer)
         except:
             continue
         if local_player_addr:
@@ -386,7 +379,5 @@ def main():
                     pm.w_byte(gmod_exe, materialsystem_dll["base"] + Offsets.MatFullbright, 96)
 
 if __name__ == "__main__":
-    LocalPlayer = pattern_scan("client.dll", b"\x48\x8b\x05\xae\xae\xae\xae\xc3\xcc\xcc\xcc\xcc\xcc\xcc\xcc\xcc\x48\x8b\x05", "xxx????xxxxxxxxxxxx")
-    Offsets.LocalPlayer = LocalPlayer
     gui = GUI()
     start()
