@@ -1,7 +1,7 @@
 {
     "LocalPlayer": "0x92f720",
     "EntityList": "0x951468",
-    "dwViewMatrix": "0x745c88",
+    "ViewMatrix": "0x745c88",
 
     "ForceJump": "0xa1ed40",
     "MatFullbright": "0x20E60B8",
