@@ -1,9 +1,9 @@
 {
-    "LocalPlayer": "0x931720",
-    "EntityList": "0x953908",
+    "LocalPlayer": "0x930720",
+    "EntityList": "0x952908",
     "ViewMatrix": "0x745c88",
 
-    "ForceJump": "0xa211e0",
+    "ForceJump": "0xa201e0",
     "MatFullbright": "0x20E60B8",
 
     "Crosshair": "0x3700",
@@ -12,5 +12,5 @@
     "Playername": "0x3744",
     "SteamID": "0x37C8",
 
-    "lastupdate": "March 27, 2025"
+    "lastupdate": "March 29, 2025"
 }
