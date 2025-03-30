@@ -176,10 +176,11 @@ def main():
                             if dpg.get_value('c_spectate'):
                                 if ent.get_spectated_player == local_id:
                                     if ent.name:
-                                        name = f" Spectated by: {ent.name} "
-                                        pm.draw_rectangle_rounded(pm.get_screen_width() // 2 - pm.measure_text(name, 24) // 2, 5, pm.measure_text(name, 24), 30, 0.2, 4, Colors.hud_fade)
-                                        pm.draw_rectangle_rounded_lines(pm.get_screen_width() // 2 - pm.measure_text(name, 24) // 2, 5, pm.measure_text(name, 24), 30, 0.2, 4, Colors.white, 2)
-                                        pm.draw_text(name, pm.get_screen_width() // 2 - pm.measure_text(name, 24) // 2, 11, 24, Colors.hud)
+                                        if not isinstance(ent.name, bytes):
+                                            name = f" Spectated by: {ent.name} "
+                                            pm.draw_rectangle_rounded(pm.get_screen_width() // 2 - pm.measure_text(name, 24) // 2, 5, pm.measure_text(name, 24), 30, 0.2, 4, Colors.hud_fade)
+                                            pm.draw_rectangle_rounded_lines(pm.get_screen_width() // 2 - pm.measure_text(name, 24) // 2, 5, pm.measure_text(name, 24), 30, 0.2, 4, Colors.white, 2)
+                                            pm.draw_text(name, pm.get_screen_width() // 2 - pm.measure_text(name, 24) // 2, 11, 24, Colors.hud)
                             if not dpg.get_value('c_hidedormant') or ent.dormant != -65536:
                                 if ent.health > 0:
                                     with open("friends.json", "r", encoding="utf-8") as f:
