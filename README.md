@@ -35,6 +35,9 @@ I don't see the ESP:
 The cheat doesn't detect gmod:
 - Use the beta gmod version: **Chromium x64**.
 
+The offsets are outdated:
+- You can use my "offset dumper" to get the new offsets: https://github.com/Calvineries/gmod-x64-offsets-dumper
+
 In Singleplayer the ESP doesn't work:
 - Uncheck "Only Real Players"
 
