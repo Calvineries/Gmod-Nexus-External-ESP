@@ -75,11 +75,14 @@ class Entity:
         self.dormant = pm.r_int(self.mem, self.addr + 0xB4)
         self.noclipping = hex(pm.r_int(self.mem, self.addr + 0x84))
         self.visiblity = hex(pm.r_int64(self.mem, self.addr + 0x88))
-        self.name = pm.r_string(self.mem, self.addr + Offsets.Playername)
-        self.steamid = pm.r_string(self.mem, self.addr + Offsets.SteamID)
         self.pos = pm.r_vec3(self.mem, self.addr + 0x308)
         self.bone_base = pm.r_int64(self.mem, self.addr + Offsets.BoneMatrix)
-        self.get_spectated_player = pm.r_uint(self.mem, self.addr + Offsets.m_hObserverTarget) & 0xFFF
+        try:
+            self.name = pm.r_string(self.mem, self.addr + Offsets.Playername)
+            self.steamid = pm.r_string(self.mem, self.addr + Offsets.SteamID)
+            self.get_spectated_player = pm.r_uint(self.mem, self.addr + Offsets.m_hObserverTarget) & 0xFFF
+        except:
+            pass
 
     def bone_pos(self, bone_id):
         return pm.vec3(
