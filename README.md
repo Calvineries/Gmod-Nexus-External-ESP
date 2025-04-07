@@ -38,6 +38,10 @@ The cheat doesn't detect gmod:
 The offsets are outdated:
 - You can use my "offset dumper" to get the new offsets: https://github.com/Calvineries/gmod-x64-offsets-dumper
 
+How to install dependencies for the uncompiled version:
+- Install the "dearpygui", "pywin32" and "requests" modules using pip.
+- Download and install pyMeow : https://github.com/qb-0/pyMeow
+
 In Singleplayer the ESP doesn't work:
 - Uncheck "Only Real Players"
 
