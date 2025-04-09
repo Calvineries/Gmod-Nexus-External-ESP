@@ -5,8 +5,6 @@ import threading
 import win32api
 import json
 import requests
-import time
-import random
 
 class Offsets:
     response = requests.get("https://raw.githubusercontent.com/Calvineries/Gmod-Nexus-External-ESP/refs/heads/master/offsets.json")
