@@ -84,6 +84,8 @@ class Entity:
         except:
             pass
 
+
+
     def bone_pos(self, bone_id):
         return pm.vec3(
             pm.r_float(self.mem, self.bone_base + bone_id * 0x30 + 0x0C),
@@ -128,7 +130,8 @@ def main():
     materialsystem_dll = pm.get_module(gmod_exe, "materialsystem.dll")
 
     pm.overlay_init("Garry's Mod (x64)", fps=60)
-
+    
+    holding = False
     while pm.overlay_loop():
         pm.begin_drawing()
         if dpg.get_value('c_hud'):
@@ -374,9 +377,15 @@ def main():
                     target = pm.r_int(gmod_exe, local_player_addr + Offsets.Crosshair)
                     if target <= 128 and target != 0:
                         color = Colors.blue
-                        pm.mouse_click(button="left")
+                        if not holding:
+                            pm.mouse_down(button="left")
+                            holding = True
                     else:
                         color = Colors.light_blue
+                        if holding:
+                            pm.mouse_up(button="left")
+                            holding = False
+
                 else:
                     target = pm.r_int(gmod_exe, local_player_addr + Offsets.Crosshair)
                     if target <= 128 and target != 0:
