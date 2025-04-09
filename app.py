@@ -5,6 +5,8 @@ import threading
 import win32api
 import json
 import requests
+import time
+import random
 
 class Offsets:
     response = requests.get("https://raw.githubusercontent.com/Calvineries/Gmod-Nexus-External-ESP/refs/heads/master/offsets.json")
@@ -149,7 +151,10 @@ def main():
             if dpg.get_value('c_bhop'):
                 texts.append("Bhop")
             if dpg.get_value('c_triggerbot'):
-                texts.append("Triggerbot")
+                if dpg.get_value('c_click_method') == "Hold":
+                    texts.append("Triggerbot (Hold)")
+                else:
+                    texts.append("Triggerbot (Tap)")
             if dpg.get_value('c_fullbright'):
                 texts.append("Fullbright")
 
@@ -377,14 +382,18 @@ def main():
                     target = pm.r_int(gmod_exe, local_player_addr + Offsets.Crosshair)
                     if target <= 128 and target != 0:
                         color = Colors.blue
-                        if not holding:
-                            pm.mouse_down(button="left")
-                            holding = True
+                        if dpg.get_value('c_click_method') == "Hold":
+                            if not holding:
+                                pm.mouse_down(button="left")
+                                holding = True
+                        else:
+                            pm.mouse_click(button="left")
                     else:
                         color = Colors.light_blue
-                        if holding:
-                            pm.mouse_up(button="left")
-                            holding = False
+                        if dpg.get_value('c_click_method') == "Hold":
+                            if holding:
+                                pm.mouse_up(button="left")
+                                holding = False
 
                 else:
                     target = pm.r_int(gmod_exe, local_player_addr + Offsets.Crosshair)

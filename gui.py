@@ -7,6 +7,7 @@ FRIENDS_FILE = "friends.json"
 
 def enableblatant():
     dpg.configure_item("c_triggerbot", enabled=True)
+    dpg.configure_item("c_click_method", enabled=True)
     dpg.configure_item("c_bhop", enabled=True)
     dpg.configure_item("c_fullbright", enabled=True)
     dpg.configure_item("blatantcheck", show=False)
@@ -101,7 +102,10 @@ class GUI():
                     with dpg.group(horizontal=True):
                         dpg.add_checkbox(label='Triggerbot', tag='c_triggerbot', enabled=False)
                         with dpg.tooltip("c_triggerbot"):
-                            dpg.add_text("Clicks for you when you are hovering over a target")
+                            dpg.add_text("Clicks for you when you are hovering over a target.")
+                        dpg.add_radio_button(tag="c_click_method", items=['Hold', 'Tap'], default_value="Hold", horizontal=True, enabled=False)
+                        with dpg.tooltip("c_click_method"):
+                            dpg.add_text("Should the triggerbot hold the click or spam click.")
                     dpg.add_checkbox(label='Bhop', tag='c_bhop', enabled=False)
                     dpg.add_checkbox(label='Fullbright (detected)', tag='c_fullbright', enabled=False)
                     with dpg.tooltip("c_fullbright"):
