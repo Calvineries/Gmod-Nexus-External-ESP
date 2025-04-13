@@ -73,6 +73,7 @@ class GUI():
                         dpg.add_text("Draws tracer lines to players")
                     dpg.add_checkbox(label='HP', tag='c_hp_text', default_value=True)
                     dpg.add_checkbox(label='Name', tag='c_name', default_value=True)
+                    dpg.add_checkbox(label='Distance', tag='c_distance')
                     dpg.add_checkbox(label='Crosshair', tag='c_crosshair', default_value=True)
                     with dpg.tooltip("c_crosshair"):
                         dpg.add_text("Dynamic crosshair.\n\nWhen you look at a player the crosshair turns red.\nIf you activate the triggerbot:\nthe crosshair will be blue, if you look\nat a player it will be dark blue.")
@@ -118,6 +119,7 @@ class GUI():
                 
                 with dpg.tab(label='Config'):
                     dpg.add_checkbox(label='Notification when someone is spectating you', tag="c_spectate", default_value=True)
+                    dpg.add_checkbox(label='HUD', tag="c_hud", default_value=True)
                     with dpg.tooltip("c_spectate"):
                         dpg.add_text("Show a message if\nsomeone is spectating you.")
                     with dpg.group(horizontal=True):
@@ -127,11 +129,13 @@ class GUI():
                         dpg.add_text("ESP Color")
                         dpg.add_radio_button(tag="c_entcolor", items=['Unicolor', 'Visibility', 'Team'], default_value="Visibility")
                         dpg.add_color_edit(default_value=(0, 255, 0), tag='c_unicolor', display_type=dpg.mvColorEdit_uint8, no_inputs=True, no_alpha=True)
-                    dpg.add_checkbox(label='HUD', tag="c_hud", default_value=True)
+                    with dpg.group(horizontal=True):
+                        dpg.add_text("Max ESP Distance")
+                        dpg.add_slider_int(min_value=0, max_value=1000, tag="c_maxdistance", default_value=0)
 
                 with dpg.tab(label='About'):
                     dpg.add_text("[Nexus External ESP]")
-                    dpg.add_text("Version: 2.0.0 - beta 3")
+                    dpg.add_text("Version: 2.0.0")
                     if "offline" in {app.Offsets.lastupdate}:
                         dpg.add_text(f"Custom offsets mode.")
                     else:

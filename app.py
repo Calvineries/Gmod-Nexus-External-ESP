@@ -195,6 +195,11 @@ def main():
                                     with open("friends.json", "r", encoding="utf-8") as f:
                                         friends = json.load(f)
                                     if not dpg.get_value('c_onlyfriends') or ent.steamid in friends:
+                                        if dpg.get_value('c_maxdistance') != 0:
+                                            local = Local(local_player_addr, gmod_exe, client_dll["base"])
+                                            distance = pm.vec3_distance(local.pos, ent.pos)
+                                            if int(distance / 32) > dpg.get_value('c_maxdistance') and ent.steamid not in friends:
+                                                continue
                                         if dpg.get_value('c_entcolor') == "Unicolor":
                                             if ent.steamid in friends:
                                                 color = dpg.get_value('c_friends_colors')
@@ -262,7 +267,6 @@ def main():
                                                         color=ent.color,
                                                         lineThick=1.8,
                                                     )
-
                                                 if dpg.get_value('c_tracer'):
                                                     pm.draw_line(
                                                         startPosX=pm.get_screen_width() // 2,
@@ -272,7 +276,14 @@ def main():
                                                         color=ent.color,
                                                         thick=1.1,
                                                     )
-
+                                                if dpg.get_value('c_distance'):
+                                                    pm.draw_text(
+                                                        text=f"{int(dist/32)} m",
+                                                        posX=ent.wts["x"],
+                                                        posY=ent.wts["y"] + 35,
+                                                        fontSize=15,
+                                                        color=ent.color,
+                                                    )
                                                 if dpg.get_value('c_hp_text'):
                                                     pm.draw_text(
                                                         text=f"{ent.health}",
@@ -353,6 +364,14 @@ def main():
                                                         endPosY=ent.wts["y"] - width,
                                                         color=ent.color,
                                                         thick=1.1,
+                                                    )
+                                                if dpg.get_value('c_distance'):
+                                                    pm.draw_text(
+                                                        text=f"{int(dist/32)} m",
+                                                        posX=ent.wts["x"],
+                                                        posY=ent.wts["y"] + 35,
+                                                        fontSize=15,
+                                                        color=ent.color,
                                                     )
                                                 if dpg.get_value('c_hp_text'):
                                                     pm.draw_text(
