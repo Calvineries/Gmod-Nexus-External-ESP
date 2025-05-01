@@ -1,9 +1,9 @@
 {
-    "LocalPlayer": "0x941250",
-    "EntityList": "0x963428",
+    "LocalPlayer": "0x9432a0",
+    "EntityList": "0x965488",
     "ViewMatrix": "0x7be5e8",
 
-    "ForceJump": "0xa30a10",
+    "ForceJump": "0xa32d50",
     "MatFullbright": "0x20E5B18",
 
     "Crosshair": "0x3700",
