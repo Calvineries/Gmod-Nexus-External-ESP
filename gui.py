@@ -16,7 +16,7 @@ def bone_mode():
     if dpg.get_value('c_esp_method') == "BonesPos (experimental)":
         dpg.configure_item("c_skeleton", enabled=True)
     else:
-        dpg.configure_item("c_skeleton", enabled=False)
+        dpg.configure_item("c_skeleton", enabled=False, default_value=False)
 
 def load_friends():
     if os.path.exists(FRIENDS_FILE):
@@ -108,9 +108,13 @@ class GUI():
                         with dpg.tooltip("c_click_method"):
                             dpg.add_text("Should the triggerbot hold the click or spam click.")
                     dpg.add_checkbox(label='Bhop', tag='c_bhop', enabled=False)
-                    dpg.add_checkbox(label='Fullbright (detected)', tag='c_fullbright', enabled=False)
-                    with dpg.tooltip("c_fullbright"):
-                        dpg.add_text("Turns up brightness to see in the dark.\n\nYou can be detected very easily by many ways!")
+                    dpg.add_text("")
+                    with dpg.collapsing_header(label='Very dangerous', tag='c_verydangerous'):
+                        with dpg.tooltip("c_verydangerous"):
+                            dpg.add_text("These cheats are dangerous, do not\nuse them on a server with an anticheat!", color=(240, 47, 28))
+                        dpg.add_checkbox(label='Fullbright (CVAR)', tag='c_fullbright', enabled=False)
+                        with dpg.tooltip("c_fullbright"):
+                            dpg.add_text("Turns up brightness to see in the dark.")
                     dpg.add_text("")
                     dpg.add_text("Detected by some anticheats!", color=(240, 47, 28))
                     dpg.add_checkbox(label='Enable writing to game memory and other sensitive features', tag="blatantcheck", callback=enableblatant)
