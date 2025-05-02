@@ -11,7 +11,7 @@ So it's impossible to detect, impossible to screengrab.
 |-|-|-|
 ESP|Reading game memory only|✅
 Dynamic Crosshair|Reading game memory only|✅
-Triggerbot|Reading game memory only|-
+Triggerbot|Reading game memory and sends inputs|-
 Bhop|Read and Write to game memory|-
 ---
 
