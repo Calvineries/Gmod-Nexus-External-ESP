@@ -5,6 +5,7 @@ import threading
 import win32api
 import json
 import requests
+import ctypes
 
 class Offsets:
     response = requests.get("https://raw.githubusercontent.com/Calvineries/Gmod-Nexus-External-ESP/refs/heads/master/offsets.json")
@@ -124,6 +125,9 @@ def start():
     dpg.start_dearpygui()
 
 def main():
+    if not pm.process_exists("gmod.exe"):
+        ctypes.windll.user32.MessageBoxW(0, "Please make sure that gmod is open. And that you are using the Chromium x64 branch.", "Gmod x64 not found.", 48)
+        os._exit(0)
     gmod_exe = pm.open_process("gmod.exe")
     client_dll = pm.get_module(gmod_exe, "client.dll")
     engine_dll = pm.get_module(gmod_exe, "engine.dll")
