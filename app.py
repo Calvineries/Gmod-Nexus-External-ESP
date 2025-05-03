@@ -134,7 +134,9 @@ def main():
     materialsystem_dll = pm.get_module(gmod_exe, "materialsystem.dll")
 
     pm.overlay_init("Garry's Mod (x64)", fps=60)
-    
+
+    pm.load_font(fileName="font/chilispepper.ttf", fontId=1)
+
     holding = False
     while pm.overlay_loop():
         pm.begin_drawing()
@@ -283,30 +285,36 @@ def main():
                                                         thick=1.1,
                                                     )
                                                 if dpg.get_value('c_hp_text'):
-                                                    pm.draw_text(
+                                                    pm.draw_font(
+                                                        fontId=1,
                                                         text=f"{ent.health}",
                                                         posX=ent.wts["x"],
                                                         posY=ent.wts["y"] + text_offset,
                                                         fontSize=15,
-                                                        color=ent.color,
+                                                        spacing=1,
+                                                        tint=ent.color,
                                                     )
                                                     text_offset += 15
                                                 if dpg.get_value('c_name'):
-                                                    pm.draw_text(
+                                                    pm.draw_font(
+                                                        fontId=1,
                                                         text=ent.name,
                                                         posX=ent.wts["x"],
                                                         posY=ent.wts["y"] + text_offset,
                                                         fontSize=15,
-                                                        color=ent.color,
+                                                        spacing=1,
+                                                        tint=ent.color,
                                                     )
                                                     text_offset += 15
                                                 if dpg.get_value('c_distance'):
-                                                    pm.draw_text(
+                                                    pm.draw_font(
+                                                        fontId=1,
                                                         text=f"{int(dist/32)} m",
                                                         posX=ent.wts["x"],
                                                         posY=ent.wts["y"] + text_offset,
                                                         fontSize=15,
-                                                        color=ent.color,
+                                                        spacing=1,
+                                                        tint=ent.color,
                                                     )
                                                     text_offset += 15
                                                 if dpg.get_value('c_skeleton'):
@@ -376,30 +384,36 @@ def main():
                                                         thick=1.1,
                                                     )
                                                 if dpg.get_value('c_hp_text'):
-                                                    pm.draw_text(
+                                                    pm.draw_font(
+                                                        fontId=1,
                                                         text=f"{ent.health}",
                                                         posX=ent.wts["x"],
                                                         posY=ent.wts["y"] + text_offset,
                                                         fontSize=15,
-                                                        color=ent.color,
+                                                        spacing=1,
+                                                        tint=ent.color,
                                                     )
                                                     text_offset += 15
                                                 if dpg.get_value('c_name'):
-                                                    pm.draw_text(
+                                                    pm.draw_font(
+                                                        fontId=1,
                                                         text=ent.name,
                                                         posX=ent.wts["x"],
                                                         posY=ent.wts["y"] + text_offset,
                                                         fontSize=15,
-                                                        color=ent.color,
+                                                        spacing=1,
+                                                        tint=ent.color,
                                                     )
                                                     text_offset += 15
                                                 if dpg.get_value('c_distance'):
-                                                    pm.draw_text(
+                                                    pm.draw_font(
+                                                        fontId=1,
                                                         text=f"{int(dist/32)} m",
                                                         posX=ent.wts["x"],
                                                         posY=ent.wts["y"] + text_offset,
                                                         fontSize=15,
-                                                        color=ent.color,
+                                                        spacing=1,
+                                                        tint=ent.color,
                                                     )
                                                     text_offset += 15
                                             except Exception as err:
