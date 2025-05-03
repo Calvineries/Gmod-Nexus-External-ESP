@@ -135,7 +135,7 @@ def main():
 
     pm.overlay_init("Garry's Mod (x64)", fps=60)
 
-    pm.load_font(fileName="font/chilispepper.ttf", fontId=1)
+    pm.load_font(fileName="font/font.ttf", fontId=1)
 
     holding = False
     while pm.overlay_loop():
