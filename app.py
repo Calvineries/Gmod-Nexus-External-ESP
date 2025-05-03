@@ -249,12 +249,14 @@ def main():
 
                                         if dpg.get_value('c_esp_method') == "BonesPos (experimental)":
                                             try:
+                                                local = Local(local_player_addr, gmod_exe, client_dll["base"])
+                                                dist = pm.vec3_distance(local.pos, ent.pos)
                                                 ent.wts = pm.world_to_screen(view_matrix, ent.pos, 1)
                                                 head_pos = pm.world_to_screen(view_matrix, ent.bone_pos(7), 1)
                                                 head = ent.wts["y"] - head_pos["y"]
                                                 width = head / 2
                                                 center = width / 2
-
+                                                text_offset = 5
                                                 if dpg.get_value('c_box'):
                                                     pm.draw_rectangle(
                                                         posX=head_pos["x"] - center,
@@ -280,30 +282,33 @@ def main():
                                                         color=ent.color,
                                                         thick=1.1,
                                                     )
-                                                if dpg.get_value('c_distance'):
-                                                    pm.draw_text(
-                                                        text=f"{int(dist/32)} m",
-                                                        posX=ent.wts["x"],
-                                                        posY=ent.wts["y"] + 35,
-                                                        fontSize=15,
-                                                        color=ent.color,
-                                                    )
                                                 if dpg.get_value('c_hp_text'):
                                                     pm.draw_text(
                                                         text=f"{ent.health}",
                                                         posX=ent.wts["x"],
-                                                        posY=ent.wts["y"] + 5,
+                                                        posY=ent.wts["y"] + text_offset,
                                                         fontSize=15,
                                                         color=ent.color,
                                                     )
+                                                    text_offset += 15
                                                 if dpg.get_value('c_name'):
                                                     pm.draw_text(
                                                         text=ent.name,
                                                         posX=ent.wts["x"],
-                                                        posY=ent.wts["y"] + 20,
+                                                        posY=ent.wts["y"] + text_offset,
                                                         fontSize=15,
                                                         color=ent.color,
                                                     )
+                                                    text_offset += 15
+                                                if dpg.get_value('c_distance'):
+                                                    pm.draw_text(
+                                                        text=f"{int(dist/32)} m",
+                                                        posX=ent.wts["x"],
+                                                        posY=ent.wts["y"] + text_offset,
+                                                        fontSize=15,
+                                                        color=ent.color,
+                                                    )
+                                                    text_offset += 15
                                                 if dpg.get_value('c_skeleton'):
                                                     if dpg.get_value('c_box'):
                                                         ent.color = Colors.white
@@ -344,6 +349,7 @@ def main():
                                                 center = width / -2
                                                 centerfix = center / 2
                                                 ent.wts = pm.world_to_screen(view_matrix, ent.pos, 1)
+                                                text_offset = 5
                                                 if dpg.get_value('c_box'):
                                                     pm.draw_rectangle(
                                                         posX=ent.wts["x"] + centerfix,
@@ -369,34 +375,37 @@ def main():
                                                         color=ent.color,
                                                         thick=1.1,
                                                     )
-                                                if dpg.get_value('c_distance'):
-                                                    pm.draw_text(
-                                                        text=f"{int(dist/32)} m",
-                                                        posX=ent.wts["x"],
-                                                        posY=ent.wts["y"] + 35,
-                                                        fontSize=15,
-                                                        color=ent.color,
-                                                    )
                                                 if dpg.get_value('c_hp_text'):
                                                     pm.draw_text(
                                                         text=f"{ent.health}",
                                                         posX=ent.wts["x"],
-                                                        posY=ent.wts["y"] + 5,
+                                                        posY=ent.wts["y"] + text_offset,
                                                         fontSize=15,
                                                         color=ent.color,
                                                     )
+                                                    text_offset += 15
                                                 if dpg.get_value('c_name'):
                                                     pm.draw_text(
                                                         text=ent.name,
                                                         posX=ent.wts["x"],
-                                                        posY=ent.wts["y"] + 20,
+                                                        posY=ent.wts["y"] + text_offset,
                                                         fontSize=15,
                                                         color=ent.color,
                                                     )
+                                                    text_offset += 15
+                                                if dpg.get_value('c_distance'):
+                                                    pm.draw_text(
+                                                        text=f"{int(dist/32)} m",
+                                                        posX=ent.wts["x"],
+                                                        posY=ent.wts["y"] + text_offset,
+                                                        fontSize=15,
+                                                        color=ent.color,
+                                                    )
+                                                    text_offset += 15
                                             except Exception as err:
                                                 continue
                     except Exception as err:
-                        continue                    
+                        continue
         if dpg.get_value('c_crosshair'):
             try:
                 if dpg.get_value('c_triggerbot'):
