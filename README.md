@@ -29,27 +29,15 @@ Bhop|Read and Write to game memory|-
 https://github.com/Calvineries/Gmod-Nexus-External-ESP/releases/
   
 ## Common issues
-I don't see the ESP:  
-- Use video setting: **Borderless window**.
-
-The cheat doesn't detect gmod:
-- Use the beta gmod version: **Chromium x64**.
-
-The offsets are outdated:
-- You can use my "offset dumper" to get the new offsets: https://github.com/Calvineries/gmod-x64-offsets-dumper
-
-How to install dependencies for the uncompiled version:
-- Install the "dearpygui", "pywin32" and "requests" modules using pip.
-- Download and install pyMeow : https://github.com/qb-0/pyMeow
-
-In Singleplayer the ESP doesn't work:
-- Uncheck "Only Real Players"
-
-The overlay is black (non transparent):
-- Solution 1: Change the "OpenGL GDI Compatibility" in Nvidia Control Panel to "Prefer compatibility".
-- Solution 2: Make the application (if compiled), or python (if not compiled) use your integrated graphics card instead of your graphics card (or the opposite).
-
-Where is the old version:
-- https://github.com/Calvineries/Gmod-Nexus-External-ESP/tree/v1-(old-version)
+|Issue|Solution|
+|-|-|
+I don't see the ESP.|Use video setting: **Borderless window**.
+The cheat doesn't detect gmod.|Use the beta gmod version: **Chromium x64**.
+The offsets are outdated.|You can use my "offset dumper" to get the new offsets: https://github.com/Calvineries/gmod-x64-offsets-dumper
+How to install dependencies for the uncompiled version.|- Install the "dearpygui", "pywin32" and "requests" modules using pip.<br>- Download and install pyMeow : https://github.com/qb-0/pyMeow
+In Singleplayer the ESP doesn't work|Uncheck "Only Real Players"
+The overlay is black (non transparent).|- Solution 1: Change the "OpenGL GDI Compatibility" in Nvidia Control Panel to "Prefer compatibility".<br>- Solution 2: Make the application (if compiled), or python (if not compiled) use your integrated graphics card instead of your graphics card (or the opposite).
+Some player names appear as "______".|These names contain non-Latin characters.<br>To display them, you must place a font file named "font.ttf" in the "font" folder.
+Where is the old version|https://github.com/Calvineries/Gmod-Nexus-External-ESP/tree/v1-(old-version)
 
 ## Contributions to the code are welcome!
