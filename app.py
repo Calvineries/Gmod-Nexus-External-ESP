@@ -16,6 +16,7 @@ class Offsets:
         ViewMatrix = int(githuboffsets["ViewMatrix"], 16)
         ForceJump = int(githuboffsets["ForceJump"], 16)
         MatFullbright = int(githuboffsets["MatFullbright"], 16)
+        Screengrab = int(githuboffsets["Screengrab"], 16)
         Crosshair = int(githuboffsets["Crosshair"], 16)
         BoneMatrix = int(githuboffsets["BoneMatrix"], 16)
         m_hObserverTarget = int(githuboffsets["m_hObserverTarget"], 16)
@@ -38,6 +39,8 @@ class Offsets:
             ForceJump = int(data["ForceJump"], 16)
         if data["MatFullbright"] != "":
             MatFullbright = int(data["MatFullbright"], 16)
+        if data["Screengrab"] != "":
+            Screengrab = int(data["Screengrab"], 16)
         if data["Crosshair"] != "":
             Crosshair = int(data["Crosshair"], 16)
         if data["BoneMatrix"] != "":
@@ -48,7 +51,7 @@ class Offsets:
             Playername = int(data["Playername"], 16)
         if data["SteamID"] != "":
             SteamID = int(data["SteamID"], 16)
-        if data["LocalPlayer"] or data["EntityList"] or data["ViewMatrix"] or data["ForceJump"] or data["MatFullbright"] or data["Crosshair"] or data["BoneMatrix"] or data["m_hObserverTarget"] or data["Playername"] or data["SteamID"] != "":
+        if data["LocalPlayer"] or data["EntityList"] or data["ViewMatrix"] or data["ForceJump"] or data["MatFullbright"] or data["Screengrab"] or data["Crosshair"] or data["BoneMatrix"] or data["m_hObserverTarget"] or data["Playername"] or data["SteamID"] != "":
             lastupdate = "offline"
     except FileNotFoundError:
         pass
@@ -180,6 +183,21 @@ def main():
         if local_player_addr:
             view_matrix_base = pm.r_int64(gmod_exe, engine_dll["base"] + Offsets.ViewMatrix) + 0x2D4
             view_matrix = pm.r_floats(gmod_exe, view_matrix_base, 16)
+            notif_offset = 5
+            if dpg.get_value('c_spectate'):
+                try:
+                    screengrab_base = pm.r_int64(gmod_exe, engine_dll["base"] + Offsets.Screengrab)
+                    screengrab = pm.r_int(gmod_exe, screengrab_base + 0x108)
+                    if screengrab == 2:
+                        text = " Screengrab "
+                        text_width = pm.measure_text(text, 24)
+                        x = pm.get_screen_width() // 2 - text_width // 2
+                        pm.draw_rectangle_rounded(x, notif_offset, text_width, 30, 0.2, 4, Colors.hud_fade)
+                        pm.draw_rectangle_rounded_lines(x, notif_offset, text_width, 30, 0.2, 4, Colors.white, 2)
+                        pm.draw_text(text, x, notif_offset + 6, 24, Colors.hud)
+                        notif_offset += 35
+                except:
+                    pass
             for i in range(0, 128):
                 ent_addr = pm.r_int64(gmod_exe, client_dll["base"] + Offsets.EntityList + i * 0x20)
                 if ent_addr == local_player_addr:
@@ -193,9 +211,12 @@ def main():
                                     if ent.name:
                                         if not isinstance(ent.name, bytes):
                                             name = f" Spectated by: {ent.name} "
-                                            pm.draw_rectangle_rounded(pm.get_screen_width() // 2 - pm.measure_text(name, 24) // 2, 5, pm.measure_text(name, 24), 30, 0.2, 4, Colors.hud_fade)
-                                            pm.draw_rectangle_rounded_lines(pm.get_screen_width() // 2 - pm.measure_text(name, 24) // 2, 5, pm.measure_text(name, 24), 30, 0.2, 4, Colors.white, 2)
-                                            pm.draw_text(name, pm.get_screen_width() // 2 - pm.measure_text(name, 24) // 2, 11, 24, Colors.hud)
+                                            text_width = pm.measure_text(name, 24)
+                                            x = pm.get_screen_width() // 2 - text_width // 2
+                                            pm.draw_rectangle_rounded(x, notif_offset, text_width, 30, 0.2, 4, Colors.hud_fade)
+                                            pm.draw_rectangle_rounded_lines(x, notif_offset, text_width, 30, 0.2, 4, Colors.white, 2)
+                                            pm.draw_text(name, x, notif_offset + 6, 24, Colors.hud)
+                                            notif_offset += 35
                             if not dpg.get_value('c_hidedormant') or ent.dormant != -65536:
                                 if ent.health > 0:
                                     with open("friends.json", "r", encoding="utf-8") as f:

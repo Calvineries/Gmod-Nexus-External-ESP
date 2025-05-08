@@ -64,13 +64,13 @@ class GUI():
                 with dpg.tab(label='Visuals'):
                     dpg.add_checkbox(label='Box ESP', tag='c_box', default_value=True)
                     with dpg.tooltip("c_box"):
-                        dpg.add_text("Draws a box over players")
+                        dpg.add_text("Draws a box over players.")
                     dpg.add_checkbox(label='Skeleton ESP', tag='c_skeleton', enabled=False)
                     with dpg.tooltip("c_skeleton"):
-                        dpg.add_text("Draws player skeletons.\nIf the server has a badly made model, it will show a messed up skeleton")
+                        dpg.add_text("Draws player skeletons.\nIf the server has a badly made model, it will show a messed up skeleton.")
                     dpg.add_checkbox(label='Tracer ESP', tag='c_tracer')
                     with dpg.tooltip("c_tracer"):
-                        dpg.add_text("Draws tracer lines to players")
+                        dpg.add_text("Draws tracer lines to players.")
                     dpg.add_checkbox(label='HP', tag='c_hp_text', default_value=True)
                     dpg.add_checkbox(label='Name', tag='c_name', default_value=True)
                     dpg.add_checkbox(label='Distance', tag='c_distance')
@@ -123,9 +123,13 @@ class GUI():
                 
                 with dpg.tab(label='Config'):
                     dpg.add_checkbox(label='Notification when someone is spectating you', tag="c_spectate", default_value=True)
-                    dpg.add_checkbox(label='HUD', tag="c_hud", default_value=True)
                     with dpg.tooltip("c_spectate"):
-                        dpg.add_text("Show a message if\nsomeone is spectating you.")
+                        dpg.add_text("Show a message if someone is spectating you.")
+                    dpg.add_checkbox(label='Notification when you are being screengrabbed', tag="c_screengrab", default_value=True)
+                    with dpg.tooltip("c_screengrab"):
+                        dpg.add_text("Show a message if the server try to take a\nscreenshot of your game.\n\nThis is just for fun.\nThis cheat is completely external and\ncannot be screengrabbed. This feature\ndoes not prevent screengrabs,\nthat would be stupid.\n\nCan also be wrong if the server does\nweird things.")
+                    dpg.add_text("")
+                    dpg.add_checkbox(label='HUD', tag="c_hud", default_value=True)
                     with dpg.group(horizontal=True):
                         dpg.add_text("ESP Method")
                         dpg.add_radio_button(tag="c_esp_method", items=['EntityPos', 'BonesPos (experimental)'], default_value="Normal", callback=bone_mode)
@@ -139,7 +143,7 @@ class GUI():
 
                 with dpg.tab(label='About'):
                     dpg.add_text("[Nexus External ESP]")
-                    dpg.add_text("Version: 2.1.0")
+                    dpg.add_text("Version: 2.1.1")
                     if "offline" in {app.Offsets.lastupdate}:
                         dpg.add_text(f"Custom offsets mode.")
                     else:
