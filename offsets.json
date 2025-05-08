@@ -1,9 +1,9 @@
 {
-    "LocalPlayer": "0x941250",
-    "EntityList": "0x963428",
+    "LocalPlayer": "0x942250",
+    "EntityList": "0x964428",
     "ViewMatrix": "0x7be5e8",
 
-    "ForceJump": "0xa30a10",
+    "ForceJump": "0xa31a10",
     "MatFullbright": "0x20E5B18",
 
     "Crosshair": "0x3700",
@@ -14,5 +14,5 @@
 
     "Entityname": "0x1C98",
 
-    "lastupdate": "May 2, 2025"
+    "lastupdate": "May 8, 2025"
 }
