@@ -112,7 +112,7 @@ class GUI():
                     with dpg.collapsing_header(label='Very dangerous', tag='c_verydangerous'):
                         with dpg.tooltip("c_verydangerous"):
                             dpg.add_text("These cheats are dangerous, do not\nuse them on a server with an anticheat!", color=(240, 47, 28))
-                        dpg.add_checkbox(label='Fullbright (CVAR)', tag='c_fullbright', enabled=False)
+                        dpg.add_checkbox(label='Fullbright', tag='c_fullbright', enabled=False)
                         with dpg.tooltip("c_fullbright"):
                             dpg.add_text("Turns up brightness to see in the dark.")
                     dpg.add_text("")
