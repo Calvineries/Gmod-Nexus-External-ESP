@@ -492,11 +492,11 @@ def main():
                         pm.w_int(gmod_exe, client_dll["base"] + Offsets.ForceJump, 4)
 
             if dpg.get_value('c_fullbright'):
-                if pm.r_byte(gmod_exe, materialsystem_dll["base"] + Offsets.MatFullbright) == 192:
-                    pm.w_byte(gmod_exe, materialsystem_dll["base"] + Offsets.MatFullbright, 193)
+                if pm.r_byte(gmod_exe, materialsystem_dll["base"] + Offsets.MatFullbright) == 32:
+                    pm.w_byte(gmod_exe, materialsystem_dll["base"] + Offsets.MatFullbright, 33)
             else:
-                if pm.r_byte(gmod_exe, materialsystem_dll["base"] + Offsets.MatFullbright) == 193:
-                    pm.w_byte(gmod_exe, materialsystem_dll["base"] + Offsets.MatFullbright, 192)
+                if pm.r_byte(gmod_exe, materialsystem_dll["base"] + Offsets.MatFullbright) == 33:
+                    pm.w_byte(gmod_exe, materialsystem_dll["base"] + Offsets.MatFullbright, 32)
 
 if __name__ == "__main__":
     gui = GUI()
