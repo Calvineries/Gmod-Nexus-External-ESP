@@ -125,10 +125,6 @@ class GUI():
                     dpg.add_checkbox(label='Notification when someone is spectating you', tag="c_spectate", default_value=True)
                     with dpg.tooltip("c_spectate"):
                         dpg.add_text("Show a message if someone is spectating you.")
-                    dpg.add_checkbox(label='Notification when you are being screengrabbed', tag="c_screengrab", default_value=True)
-                    with dpg.tooltip("c_screengrab"):
-                        dpg.add_text("Show a message if the server try to take a\nscreenshot of your game.\n\nThis is just for fun.\nThis cheat is completely external and\ncannot be screengrabbed. This feature\ndoes not prevent screengrabs,\nthat would be stupid.\n\nCan also be wrong if the server does\nweird things.")
-                    dpg.add_text("")
                     dpg.add_checkbox(label='HUD', tag="c_hud", default_value=True)
                     with dpg.group(horizontal=True):
                         dpg.add_text("ESP Method")
