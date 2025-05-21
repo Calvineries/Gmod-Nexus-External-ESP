@@ -9,6 +9,8 @@
     "Crosshair": "0x3700",
     "BoneMatrix": "0x1A98",
     "m_hObserverTarget": "0x2CC8",
+    "m_hActiveWeapon": "0x2940",
+    "Weaponname": "0x1D00",
     "Playername": "0x3744",
     "SteamID": "0x37C8",
 
