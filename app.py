@@ -19,6 +19,8 @@ class Offsets:
         Crosshair = int(githuboffsets["Crosshair"], 16)
         BoneMatrix = int(githuboffsets["BoneMatrix"], 16)
         m_hObserverTarget = int(githuboffsets["m_hObserverTarget"], 16)
+        m_hActiveWeapon = int(githuboffsets["m_hActiveWeapon"], 16)
+        Weaponname = int(githuboffsets["Weaponname"], 16)
         Playername = int(githuboffsets["Playername"], 16)
         SteamID = int(githuboffsets["SteamID"], 16)
         lastupdate = str(githuboffsets["lastupdate"])
@@ -44,11 +46,15 @@ class Offsets:
             BoneMatrix = int(data["BoneMatrix"], 16)
         if data["m_hObserverTarget"] != "":
             m_hObserverTarget = int(data["m_hObserverTarget"], 16)
+        if data["m_hActiveWeapon"] != "":
+            m_hActiveWeapon = int(data["m_hActiveWeapon"], 16)
+        if data["Weaponname"] != "":
+            Weaponname = int(data["Weaponname"], 16)
         if data["Playername"] != "":
             Playername = int(data["Playername"], 16)
         if data["SteamID"] != "":
             SteamID = int(data["SteamID"], 16)
-        if data["LocalPlayer"] or data["EntityList"] or data["ViewMatrix"] or data["ForceJump"] or data["MatFullbright"] or data["Crosshair"] or data["BoneMatrix"] or data["m_hObserverTarget"] or data["Playername"] or data["SteamID"] != "":
+        if data["LocalPlayer"] or data["EntityList"] or data["ViewMatrix"] or data["ForceJump"] or data["MatFullbright"] or data["Crosshair"] or data["BoneMatrix"] or data["m_hObserverTarget"] or data["m_hActiveWeapon"] or data["Weaponname"] or data["Playername"] or data["SteamID"] != "":
             lastupdate = "offline"
     except FileNotFoundError:
         pass
@@ -82,6 +88,7 @@ class Entity:
             self.name = pm.r_string(self.mem, self.addr + Offsets.Playername)
             self.steamid = pm.r_string(self.mem, self.addr + Offsets.SteamID)
             self.get_spectated_player = pm.r_uint(self.mem, self.addr + Offsets.m_hObserverTarget) & 0xFFF
+            self.active_weapon = pm.r_uint(self.mem, self.addr + Offsets.m_hActiveWeapon) & 0xFFF
         except:
             pass
 
@@ -310,6 +317,19 @@ def main():
                                                         tint=ent.color,
                                                     )
                                                     text_offset += 15
+                                                if dpg.get_value('c_weapon'):
+                                                    weapon_handle = pm.r_int64(gmod_exe, client_dll["base"] + Offsets.EntityList + (ent.active_weapon - 1) * 0x20)
+                                                    weapon_name = pm.r_string(gmod_exe, weapon_handle + Offsets.Weaponname) 
+                                                    pm.draw_font(
+                                                        fontId=1,
+                                                        text=weapon_name,
+                                                        posX=ent.wts["x"],
+                                                        posY=ent.wts["y"] + text_offset,
+                                                        fontSize=15,
+                                                        spacing=1,
+                                                        tint=ent.color,
+                                                    )
+                                                    text_offset += 15
                                                 if dpg.get_value('c_distance'):
                                                     pm.draw_font(
                                                         fontId=1,
@@ -402,6 +422,19 @@ def main():
                                                     pm.draw_font(
                                                         fontId=1,
                                                         text=ent.name,
+                                                        posX=ent.wts["x"],
+                                                        posY=ent.wts["y"] + text_offset,
+                                                        fontSize=15,
+                                                        spacing=1,
+                                                        tint=ent.color,
+                                                    )
+                                                    text_offset += 15
+                                                if dpg.get_value('c_weapon'):
+                                                    weapon_handle = pm.r_int64(gmod_exe, client_dll["base"] + Offsets.EntityList + (ent.active_weapon - 1) * 0x20)
+                                                    weapon_name = pm.r_string(gmod_exe, weapon_handle + Offsets.Weaponname) 
+                                                    pm.draw_font(
+                                                        fontId=1,
+                                                        text=weapon_name,
                                                         posX=ent.wts["x"],
                                                         posY=ent.wts["y"] + text_offset,
                                                         fontSize=15,

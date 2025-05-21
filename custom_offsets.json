@@ -9,6 +9,8 @@
     "Crosshair": "",
     "BoneMatrix": "",
     "m_hObserverTarget": "",
+    "m_hActiveWeapon": "",
+    "Weaponname": "",
     "Playername": "",
     "SteamID": ""
 }

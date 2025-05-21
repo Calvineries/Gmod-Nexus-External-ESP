@@ -73,6 +73,9 @@ class GUI():
                         dpg.add_text("Draws tracer lines to players.")
                     dpg.add_checkbox(label='HP', tag='c_hp_text', default_value=True)
                     dpg.add_checkbox(label='Name', tag='c_name', default_value=True)
+                    dpg.add_checkbox(label='Weapon', tag='c_weapon', default_value=True)
+                    with dpg.tooltip("c_weapon"):
+                        dpg.add_text("Draws the name of the held weapon.")
                     dpg.add_checkbox(label='Distance', tag='c_distance')
                     dpg.add_checkbox(label='Crosshair', tag='c_crosshair', default_value=True)
                     with dpg.tooltip("c_crosshair"):
@@ -139,7 +142,7 @@ class GUI():
 
                 with dpg.tab(label='About'):
                     dpg.add_text("[Nexus External ESP]")
-                    dpg.add_text("Version: 2.1.1")
+                    dpg.add_text("Version: 2.1.2")
                     if "offline" in {app.Offsets.lastupdate}:
                         dpg.add_text(f"Custom offsets mode.")
                     else:
