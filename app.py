@@ -198,15 +198,14 @@ def main():
                         if not dpg.get_value('c_onlyplayer') or "STEAM_" in ent.steamid:
                             if dpg.get_value('c_spectate'):
                                 if ent.get_spectated_player == local_id:
-                                    if ent.name:
-                                        if not isinstance(ent.name, bytes):
-                                            name = f" Spectated by: {ent.name} "
-                                            text_width = pm.measure_text(name, 24)
-                                            x = pm.get_screen_width() // 2 - text_width // 2
-                                            pm.draw_rectangle_rounded(x, notif_offset, text_width, 30, 0.2, 4, Colors.hud_fade)
-                                            pm.draw_rectangle_rounded_lines(x, notif_offset, text_width, 30, 0.2, 4, Colors.white, 2)
-                                            pm.draw_text(name, x, notif_offset + 6, 24, Colors.hud)
-                                            notif_offset += 35
+                                    if not isinstance(ent.name, bytes) and ent.name:
+                                        name = f" Spectated by: {ent.name} "
+                                        text_width = pm.measure_text(name, 24)
+                                        x = pm.get_screen_width() // 2 - text_width // 2
+                                        pm.draw_rectangle_rounded(x, notif_offset, text_width, 30, 0.2, 4, Colors.hud_fade)
+                                        pm.draw_rectangle_rounded_lines(x, notif_offset, text_width, 30, 0.2, 4, Colors.white, 2)
+                                        pm.draw_text(name, x, notif_offset + 6, 24, Colors.hud)
+                                        notif_offset += 35
                             if not dpg.get_value('c_hidedormant') or ent.dormant != -65536:
                                 if ent.health > 0:
                                     with open("friends.json", "r", encoding="utf-8") as f:
@@ -319,17 +318,18 @@ def main():
                                                     text_offset += 15
                                                 if dpg.get_value('c_weapon'):
                                                     weapon_handle = pm.r_int64(gmod_exe, client_dll["base"] + Offsets.EntityList + (ent.active_weapon - 1) * 0x20)
-                                                    weapon_name = pm.r_string(gmod_exe, weapon_handle + Offsets.Weaponname) 
-                                                    pm.draw_font(
-                                                        fontId=1,
-                                                        text=weapon_name,
-                                                        posX=ent.wts["x"],
-                                                        posY=ent.wts["y"] + text_offset,
-                                                        fontSize=15,
-                                                        spacing=1,
-                                                        tint=ent.color,
-                                                    )
-                                                    text_offset += 15
+                                                    weapon_name = pm.r_string(gmod_exe, weapon_handle + Offsets.Weaponname)
+                                                    if not isinstance(weapon_name, bytes) and weapon_name:
+                                                        pm.draw_font(
+                                                            fontId=1,
+                                                            text=weapon_name,
+                                                            posX=ent.wts["x"],
+                                                            posY=ent.wts["y"] + text_offset,
+                                                            fontSize=15,
+                                                            spacing=1,
+                                                            tint=ent.color,
+                                                        )
+                                                        text_offset += 15
                                                 if dpg.get_value('c_distance'):
                                                     pm.draw_font(
                                                         fontId=1,
@@ -432,16 +432,17 @@ def main():
                                                 if dpg.get_value('c_weapon'):
                                                     weapon_handle = pm.r_int64(gmod_exe, client_dll["base"] + Offsets.EntityList + (ent.active_weapon - 1) * 0x20)
                                                     weapon_name = pm.r_string(gmod_exe, weapon_handle + Offsets.Weaponname) 
-                                                    pm.draw_font(
-                                                        fontId=1,
-                                                        text=weapon_name,
-                                                        posX=ent.wts["x"],
-                                                        posY=ent.wts["y"] + text_offset,
-                                                        fontSize=15,
-                                                        spacing=1,
-                                                        tint=ent.color,
-                                                    )
-                                                    text_offset += 15
+                                                    if not isinstance(weapon_name, bytes) and weapon_name:
+                                                        pm.draw_font(
+                                                            fontId=1,
+                                                            text=weapon_name,
+                                                            posX=ent.wts["x"],
+                                                            posY=ent.wts["y"] + text_offset,
+                                                            fontSize=15,
+                                                            spacing=1,
+                                                            tint=ent.color,
+                                                        )
+                                                        text_offset += 15
                                                 if dpg.get_value('c_distance'):
                                                     pm.draw_font(
                                                         fontId=1,
