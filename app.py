@@ -306,16 +306,17 @@ def main():
                                                     )
                                                     text_offset += 15
                                                 if dpg.get_value('c_name'):
-                                                    pm.draw_font(
-                                                        fontId=1,
-                                                        text=ent.name,
-                                                        posX=ent.wts["x"],
-                                                        posY=ent.wts["y"] + text_offset,
-                                                        fontSize=15,
-                                                        spacing=1,
-                                                        tint=ent.color,
-                                                    )
-                                                    text_offset += 15
+                                                    if ent.name:
+                                                        pm.draw_font(
+                                                            fontId=1,
+                                                            text=ent.name,
+                                                            posX=ent.wts["x"],
+                                                            posY=ent.wts["y"] + text_offset,
+                                                            fontSize=15,
+                                                            spacing=1,
+                                                            tint=ent.color,
+                                                        )
+                                                        text_offset += 15
                                                 if dpg.get_value('c_weapon'):
                                                     weapon_handle = pm.r_int64(gmod_exe, client_dll["base"] + Offsets.EntityList + (ent.active_weapon - 1) * 0x20)
                                                     weapon_name = pm.r_string(gmod_exe, weapon_handle + Offsets.Weaponname)
@@ -419,16 +420,17 @@ def main():
                                                     )
                                                     text_offset += 15
                                                 if dpg.get_value('c_name'):
-                                                    pm.draw_font(
-                                                        fontId=1,
-                                                        text=ent.name,
-                                                        posX=ent.wts["x"],
-                                                        posY=ent.wts["y"] + text_offset,
-                                                        fontSize=15,
-                                                        spacing=1,
-                                                        tint=ent.color,
-                                                    )
-                                                    text_offset += 15
+                                                    if ent.name:
+                                                        pm.draw_font(
+                                                            fontId=1,
+                                                            text=ent.name,
+                                                            posX=ent.wts["x"],
+                                                            posY=ent.wts["y"] + text_offset,
+                                                            fontSize=15,
+                                                            spacing=1,
+                                                            tint=ent.color,
+                                                        )
+                                                        text_offset += 15
                                                 if dpg.get_value('c_weapon'):
                                                     weapon_handle = pm.r_int64(gmod_exe, client_dll["base"] + Offsets.EntityList + (ent.active_weapon - 1) * 0x20)
                                                     weapon_name = pm.r_string(gmod_exe, weapon_handle + Offsets.Weaponname) 
