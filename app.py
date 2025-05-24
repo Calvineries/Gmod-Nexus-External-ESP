@@ -253,12 +253,17 @@ def main():
                                                 if dpg.get_value('c_shownoclipping'):
                                                     if ent.noclipping == "0xff00":
                                                         continue
-                                            else:
+                                            elif dpg.get_value('c_entcolor') == "Team":
                                                 color = ((ent.team * 137) % 256 , (ent.team * 53) % 256, (ent.team * 197) % 256)
                                                 r, g, b = map(int, color[:3])
                                                 hex_color = "#{:02X}{:02X}{:02X}".format(r, g, b)
                                                 ent.color = pm.get_color(hex_color)
-
+                                            else:
+                                                health = max(0, min(ent.health, 100))
+                                                g = int(health * 2.55)
+                                                r = 255 - g
+                                                b = 0
+                                                ent.color = pm.get_color("#{:02X}{:02X}{:02X}".format(r, g, b))
                                         if dpg.get_value('c_esp_method') == "BonesPos (experimental)":
                                             try:
                                                 local = Local(local_player_addr, gmod_exe, client_dll["base"])

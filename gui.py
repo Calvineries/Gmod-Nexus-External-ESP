@@ -134,7 +134,7 @@ class GUI():
                         dpg.add_radio_button(tag="c_esp_method", items=['EntityPos', 'BonesPos (experimental)'], default_value="Normal", callback=bone_mode)
                     with dpg.group(horizontal=True):
                         dpg.add_text("ESP Color")
-                        dpg.add_radio_button(tag="c_entcolor", items=['Unicolor', 'Visibility', 'Team'], default_value="Visibility")
+                        dpg.add_radio_button(tag="c_entcolor", items=['Unicolor', 'Visibility', 'Team', 'Health'], default_value="Visibility")
                         dpg.add_color_edit(default_value=(0, 255, 0), tag='c_unicolor', display_type=dpg.mvColorEdit_uint8, no_inputs=True, no_alpha=True)
                     with dpg.group(horizontal=True):
                         dpg.add_text("Max ESP Distance")
