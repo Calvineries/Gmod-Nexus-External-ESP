@@ -268,36 +268,110 @@ def main():
                                                 ent.color = pm.get_color("#{:02X}{:02X}{:02X}".format(r, g, b))
                                         if dpg.get_value('c_esp_method') == "BonesPos (experimental)":
                                             try:
-                                                local = Local(local_player_addr, gmod_exe, client_dll["base"])
-                                                dist = pm.vec3_distance(local.pos, ent.pos)
-                                                ent.wts = pm.world_to_screen(view_matrix, ent.pos, 1)
-                                                head_pos = pm.world_to_screen(view_matrix, ent.bone_pos(7), 1)
-                                                head = ent.wts["y"] - head_pos["y"]
-                                                width = head / 2
-                                                center = width / 2
-                                                text_offset = 5
-                                                if dpg.get_value('c_box'):
-                                                    pm.draw_rectangle(
-                                                        posX=head_pos["x"] - center,
-                                                        posY=head_pos["y"] - center / 2,
-                                                        width=width,
-                                                        height=head + center / 2,
-                                                        color=pm.fade_color(ent.color, 0.3),
-                                                    )
-                                                    pm.draw_rectangle_lines(
-                                                        posX=head_pos["x"] - center,
-                                                        posY=head_pos["y"] - center / 2,
-                                                        width=width,
-                                                        height=head + center / 2,
-                                                        color=ent.color,
-                                                        lineThick=1.8,
-                                                    )
+                                                if pm.vec3_distance(ent.pos, ent.bone_pos(7)) < 100:
+                                                    local = Local(local_player_addr, gmod_exe, client_dll["base"])
+                                                    dist = pm.vec3_distance(local.pos, ent.pos)
+                                                    ent.wts = pm.world_to_screen(view_matrix, ent.pos, 1)
+                                                    head_pos = pm.world_to_screen(view_matrix, ent.bone_pos(7), 1)
+                                                    head = ent.wts["y"] - head_pos["y"]
+                                                    width = head / 2
+                                                    center = width / 2
+                                                    text_offset = 5
+                                                    if dpg.get_value('c_box'):
+                                                        pm.draw_rectangle(
+                                                            posX=head_pos["x"] - center,
+                                                            posY=head_pos["y"] - center / 2,
+                                                            width=width,
+                                                            height=head + center / 2,
+                                                            color=pm.fade_color(ent.color, 0.3),
+                                                        )
+                                                        pm.draw_rectangle_lines(
+                                                            posX=head_pos["x"] - center,
+                                                            posY=head_pos["y"] - center / 2,
+                                                            width=width,
+                                                            height=head + center / 2,
+                                                            color=ent.color,
+                                                            lineThick=1.8,
+                                                        )
+                                                    if dpg.get_value('c_skeleton'):
+                                                        bones = {
+                                                            'neck': 5,
+                                                            'shoulderRight': 9,
+                                                            'shoulderLeft': 14,
+                                                            'elbowRight': 10,
+                                                            'elbowLeft': 15,
+                                                            'handRight': 11,
+                                                            'handLeft': 16,
+                                                            'crotch': 0,
+                                                            'kneeRight': 19,
+                                                            'kneeLeft': 23,
+                                                            'ankleRight': 21,
+                                                            'ankleLeft': 25,
+                                                        }
+
+                                                        screen_positions = {}
+
+                                                        for name, index in bones.items():
+                                                            bone_pos = ent.bone_pos(index)
+                                                            if pm.vec3_distance(ent.pos, bone_pos) < 100:
+                                                                screen_positions[name] = pm.world_to_screen(view_matrix, bone_pos, 1)
+
+                                                        connections = [
+                                                            ('neck', 'shoulderRight'),
+                                                            ('neck', 'shoulderLeft'),
+                                                            ('shoulderLeft', 'elbowLeft'),
+                                                            ('shoulderRight', 'elbowRight'),
+                                                            ('elbowRight', 'handRight'),
+                                                            ('elbowLeft', 'handLeft'),
+                                                            ('neck', 'crotch'),
+                                                            ('crotch', 'kneeRight'),
+                                                            ('crotch', 'kneeLeft'),
+                                                            ('kneeLeft', 'ankleLeft'),
+                                                            ('kneeRight', 'ankleRight'),
+                                                        ]
+
+                                                        skeleton_color = ent.color
+                                                        if dpg.get_value('c_box'):
+                                                            skeleton_color = Colors.white
+
+                                                        for a, b in connections:
+                                                            if a in screen_positions and b in screen_positions:
+                                                                p1, p2 = screen_positions[a], screen_positions[b]
+                                                                pm.draw_line(p1["x"], p1["y"], p2["x"], p2["y"], skeleton_color, 1)
+
+
+                                                else:
+                                                    local = Local(local_player_addr, gmod_exe, client_dll["base"])
+                                                    dist = pm.vec3_distance(local.pos, ent.pos)
+                                                    width = 48000 / dist
+                                                    center = width / -2
+                                                    centerfix = center / 2
+                                                    ent.wts = pm.world_to_screen(view_matrix, ent.pos, 1)
+                                                    text_offset = 5
+                                                    if dpg.get_value('c_box'):
+                                                        pm.draw_rectangle(
+                                                            posX=ent.wts["x"] + centerfix,
+                                                            posY=ent.wts["y"] - width,
+                                                            width=width / 2,
+                                                            height=width,
+                                                            color=pm.fade_color(ent.color, 0.3),
+                                                        )
+                                                        pm.draw_rectangle_lines(
+                                                            posX=ent.wts["x"] + centerfix,
+                                                            posY=ent.wts["y"] - width,
+                                                            width=width/2,
+                                                            height=width,
+                                                            color=ent.color,
+                                                            lineThick=1.8,
+                                                        )
+
+                                                        
                                                 if dpg.get_value('c_tracer'):
                                                     pm.draw_line(
                                                         startPosX=pm.get_screen_width() // 2,
                                                         startPosY=pm.get_screen_height() // 2,
-                                                        endPosX=head_pos["x"] - center / 6,
-                                                        endPosY=head_pos["y"] - center / 2,
+                                                        endPosX=ent.wts["x"],
+                                                        endPosY=ent.wts["y"] - width,
                                                         color=ent.color,
                                                         thick=1.1,
                                                     )
@@ -326,7 +400,7 @@ def main():
                                                         text_offset += 15
                                                 if dpg.get_value('c_weapon'):
                                                     weapon_handle = pm.r_int64(gmod_exe, client_dll["base"] + Offsets.EntityList + (ent.active_weapon - 1) * 0x20)
-                                                    weapon_name = pm.r_string(gmod_exe, weapon_handle + Offsets.Weaponname)
+                                                    weapon_name = pm.r_string(gmod_exe, weapon_handle + Offsets.Weaponname) 
                                                     if not isinstance(weapon_name, bytes) and weapon_name:
                                                         pm.draw_font(
                                                             fontId=1,
@@ -349,33 +423,6 @@ def main():
                                                         tint=ent.color,
                                                     )
                                                     text_offset += 15
-                                                if dpg.get_value('c_skeleton'):
-                                                    if dpg.get_value('c_box'):
-                                                        ent.color = Colors.white
-                                                    neck = pm.world_to_screen(view_matrix, ent.bone_pos(5), 1)
-                                                    shoulderRight = pm.world_to_screen(view_matrix, ent.bone_pos(9), 1)
-                                                    shoulderLeft = pm.world_to_screen(view_matrix, ent.bone_pos(14), 1)
-                                                    elbowRight = pm.world_to_screen(view_matrix, ent.bone_pos(10), 1)
-                                                    elbowLeft = pm.world_to_screen(view_matrix, ent.bone_pos(15), 1)
-                                                    handRight = pm.world_to_screen(view_matrix, ent.bone_pos(11), 1)
-                                                    handLeft = pm.world_to_screen(view_matrix, ent.bone_pos(40), 1)
-                                                    crotch = pm.world_to_screen(view_matrix, ent.bone_pos(0), 1)
-                                                    kneeRight = pm.world_to_screen(view_matrix, ent.bone_pos(19), 1)
-                                                    kneeLeft = pm.world_to_screen(view_matrix, ent.bone_pos(23), 1)
-                                                    ankleRight = pm.world_to_screen(view_matrix, ent.bone_pos(21), 1)
-                                                    ankleLeft = pm.world_to_screen(view_matrix, ent.bone_pos(25), 1)
-
-                                                    pm.draw_line(neck["x"], neck["y"], shoulderRight["x"], shoulderRight["y"], ent.color, 1)
-                                                    pm.draw_line(neck["x"], neck["y"], shoulderLeft["x"], shoulderLeft["y"], ent.color, 1)
-                                                    pm.draw_line(elbowLeft["x"], elbowLeft["y"], shoulderLeft["x"], shoulderLeft["y"], ent.color, 1)
-                                                    pm.draw_line(elbowRight["x"], elbowRight["y"], shoulderRight["x"], shoulderRight["y"], ent.color, 1)
-                                                    pm.draw_line(elbowRight["x"], elbowRight["y"], handRight["x"], handRight["y"], ent.color, 1)
-                                                    pm.draw_line(elbowLeft["x"], elbowLeft["y"], handLeft["x"], handLeft["y"], ent.color, 1)
-                                                    pm.draw_line(neck["x"], neck["y"], crotch["x"], crotch["y"], ent.color, 1)
-                                                    pm.draw_line(kneeRight["x"], kneeRight["y"], crotch["x"], crotch["y"], ent.color, 1)
-                                                    pm.draw_line(kneeLeft["x"], kneeLeft["y"], crotch["x"], crotch["y"], ent.color, 1)
-                                                    pm.draw_line(kneeLeft["x"], kneeLeft["y"], ankleLeft["x"], ankleLeft["y"], ent.color, 1)
-                                                    pm.draw_line(kneeRight["x"], kneeRight["y"], ankleRight["x"], ankleRight["y"], ent.color, 1)
 
                                             except Exception as err:
                                                 continue
