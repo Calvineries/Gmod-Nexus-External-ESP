@@ -146,6 +146,8 @@ def main():
 
     holding = False
     while pm.overlay_loop():
+        if not pm.process_running(gmod_exe):
+            os._exit(0)
         pm.begin_drawing()
         if dpg.get_value('c_hud'):
             pm.draw_rectangle_rounded(5, 5, 248, 30, 0.2, 4, Colors.hud_fade)
