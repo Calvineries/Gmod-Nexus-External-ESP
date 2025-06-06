@@ -6,6 +6,7 @@ import win32api
 import json
 import requests
 import ctypes
+import math
 
 class Offsets:
     response = requests.get("https://raw.githubusercontent.com/Calvineries/Gmod-Nexus-External-ESP/refs/heads/master/offsets.json")
@@ -113,7 +114,7 @@ def get_players():
     gmod_exe = pm.open_process("gmod.exe")
     client_dll = pm.get_module(gmod_exe, "client.dll")
     players = []
-    
+
     for i in range(0, 128):
         ent_addr = pm.r_int64(gmod_exe, client_dll["base"] + Offsets.EntityList + i * 0x20)
         if ent_addr:
@@ -130,6 +131,18 @@ def start():
     gui.init_menu()
     threading.Thread(target=main, name='main', daemon=True).start()
     dpg.start_dearpygui()
+
+def draw_circle_filled(center_x, center_y, radius, color):
+    """Draw a filled circle using a single filled rectangle."""
+    # Draw a filled rectangle that approximates a circle
+    size = int(radius * 2)
+    pm.draw_rectangle(
+        posX=center_x - radius,
+        posY=center_y - radius,
+        width=size,
+        height=size,
+        color=color
+    )
 
 def main():
     if not pm.process_exists("gmod.exe"):
@@ -365,7 +378,7 @@ def main():
                                                             lineThick=1.8,
                                                         )
 
-                                                        
+
                                                 if dpg.get_value('c_tracer'):
                                                     pm.draw_line(
                                                         startPosX=pm.get_screen_width() // 2,
@@ -400,7 +413,7 @@ def main():
                                                         text_offset += 15
                                                 if dpg.get_value('c_weapon'):
                                                     weapon_handle = pm.r_int64(gmod_exe, client_dll["base"] + Offsets.EntityList + (ent.active_weapon - 1) * 0x20)
-                                                    weapon_name = pm.r_string(gmod_exe, weapon_handle + Offsets.Weaponname) 
+                                                    weapon_name = pm.r_string(gmod_exe, weapon_handle + Offsets.Weaponname)
                                                     if not isinstance(weapon_name, bytes) and weapon_name:
                                                         pm.draw_font(
                                                             fontId=1,
@@ -487,7 +500,7 @@ def main():
                                                         text_offset += 15
                                                 if dpg.get_value('c_weapon'):
                                                     weapon_handle = pm.r_int64(gmod_exe, client_dll["base"] + Offsets.EntityList + (ent.active_weapon - 1) * 0x20)
-                                                    weapon_name = pm.r_string(gmod_exe, weapon_handle + Offsets.Weaponname) 
+                                                    weapon_name = pm.r_string(gmod_exe, weapon_handle + Offsets.Weaponname)
                                                     if not isinstance(weapon_name, bytes) and weapon_name:
                                                         pm.draw_font(
                                                             fontId=1,
@@ -516,10 +529,11 @@ def main():
                         continue
         if dpg.get_value('c_crosshair'):
             try:
+                # Get crosshair color based on state
                 if dpg.get_value('c_triggerbot'):
                     target = pm.r_int(gmod_exe, local_player_addr + Offsets.Crosshair)
                     if target <= 128 and target != 0:
-                        color = Colors.blue
+                        color = dpg.get_value('c_crosshair_color_triggerbot_target')
                         if dpg.get_value('c_click_method') == "Hold":
                             if not holding:
                                 pm.mouse_down(button="left")
@@ -527,26 +541,172 @@ def main():
                         else:
                             pm.mouse_click(button="left")
                     else:
-                        color = Colors.light_blue
+                        color = dpg.get_value('c_crosshair_color_triggerbot')
                         if dpg.get_value('c_click_method') == "Hold":
                             if holding:
                                 pm.mouse_up(button="left")
                                 holding = False
-
                 else:
                     target = pm.r_int(gmod_exe, local_player_addr + Offsets.Crosshair)
                     if target <= 128 and target != 0:
-                        color = Colors.red
+                        color = dpg.get_value('c_crosshair_color_target')
                     else:
-                        color = Colors.green
-                    
-                pm.draw_text(
-                    text="+",
-                    posX=pm.get_screen_width() // 2 - 10,
-                    posY=pm.get_screen_height() // 2 - 18,
-                    fontSize=40,
-                    color=color,
-                )
+                        color = dpg.get_value('c_crosshair_color_default')
+
+                # Convert color tuple to hex
+                r, g, b = map(int, color[:3])
+                hex_color = "#{:02X}{:02X}{:02X}".format(r, g, b)
+                color = pm.get_color(hex_color)
+
+                # Get crosshair settings
+                style = dpg.get_value('c_crosshair_style')
+                size = dpg.get_value('c_crosshair_size')
+                thickness = dpg.get_value('c_crosshair_thickness')
+                gap = dpg.get_value('c_crosshair_gap')
+
+                # Calculate center position
+                center_x = pm.get_screen_width() // 2
+                center_y = pm.get_screen_height() // 2
+
+                # Draw crosshair based on style
+                if style == 'Dot':
+                    # For dot style, we use a simple filled square
+                    dot_size = size/4
+                    pm.draw_rectangle(
+                        posX=center_x - dot_size,
+                        posY=center_y - dot_size,
+                        width=dot_size * 2,
+                        height=dot_size * 2,
+                        color=color
+                    )
+
+                elif style == 'Cross':
+                    # Draw horizontal line
+                    pm.draw_line(
+                        startPosX=center_x - size - gap,
+                        startPosY=center_y,
+                        endPosX=center_x - gap,
+                        endPosY=center_y,
+                        color=color,
+                        thick=thickness
+                    )
+                    pm.draw_line(
+                        startPosX=center_x + gap,
+                        startPosY=center_y,
+                        endPosX=center_x + size + gap,
+                        endPosY=center_y,
+                        color=color,
+                        thick=thickness
+                    )
+                    # Draw vertical line
+                    pm.draw_line(
+                        startPosX=center_x,
+                        startPosY=center_y - size - gap,
+                        endPosX=center_x,
+                        endPosY=center_y - gap,
+                        color=color,
+                        thick=thickness
+                    )
+                    pm.draw_line(
+                        startPosX=center_x,
+                        startPosY=center_y + gap,
+                        endPosX=center_x,
+                        endPosY=center_y + size + gap,
+                        color=color,
+                        thick=thickness
+                    )
+
+                elif style == 'Circle':
+                    # Draw circle using multiple points
+                    segments = 32
+                    for i in range(segments):
+                        angle1 = i * (360 / segments)
+                        angle2 = (i + 1) * (360 / segments)
+                        x1 = center_x + size * math.cos(math.radians(angle1))
+                        y1 = center_y + size * math.sin(math.radians(angle1))
+                        x2 = center_x + size * math.cos(math.radians(angle2))
+                        y2 = center_y + size * math.sin(math.radians(angle2))
+                        pm.draw_line(
+                            startPosX=x1,
+                            startPosY=y1,
+                            endPosX=x2,
+                            endPosY=y2,
+                            color=color,
+                            thick=thickness
+                        )
+
+                elif style == 'Cross + Dot':
+                    # Draw dot
+                    dot_size = size/4
+                    pm.draw_rectangle(
+                        posX=center_x - dot_size,
+                        posY=center_y - dot_size,
+                        width=dot_size * 2,
+                        height=dot_size * 2,
+                        color=color
+                    )
+                    # Draw cross
+                    pm.draw_line(
+                        startPosX=center_x - size - gap,
+                        startPosY=center_y,
+                        endPosX=center_x - gap,
+                        endPosY=center_y,
+                        color=color,
+                        thick=thickness
+                    )
+                    pm.draw_line(
+                        startPosX=center_x + gap,
+                        startPosY=center_y,
+                        endPosX=center_x + size + gap,
+                        endPosY=center_y,
+                        color=color,
+                        thick=thickness
+                    )
+                    pm.draw_line(
+                        startPosX=center_x,
+                        startPosY=center_y - size - gap,
+                        endPosX=center_x,
+                        endPosY=center_y - gap,
+                        color=color,
+                        thick=thickness
+                    )
+                    pm.draw_line(
+                        startPosX=center_x,
+                        startPosY=center_y + gap,
+                        endPosX=center_x,
+                        endPosY=center_y + size + gap,
+                        color=color,
+                        thick=thickness
+                    )
+
+                elif style == 'Circle + Dot':
+                    # Draw dot
+                    dot_size = size/4
+                    pm.draw_rectangle(
+                        posX=center_x - dot_size,
+                        posY=center_y - dot_size,
+                        width=dot_size * 2,
+                        height=dot_size * 2,
+                        color=color
+                    )
+                    # Draw circle
+                    segments = 32
+                    for i in range(segments):
+                        angle1 = i * (360 / segments)
+                        angle2 = (i + 1) * (360 / segments)
+                        x1 = center_x + size * math.cos(math.radians(angle1))
+                        y1 = center_y + size * math.sin(math.radians(angle1))
+                        x2 = center_x + size * math.cos(math.radians(angle2))
+                        y2 = center_y + size * math.sin(math.radians(angle2))
+                        pm.draw_line(
+                            startPosX=x1,
+                            startPosY=y1,
+                            endPosX=x2,
+                            endPosY=y2,
+                            color=color,
+                            thick=thickness
+                        )
+
             except Exception as err:
                 continue
         pm.end_drawing()
