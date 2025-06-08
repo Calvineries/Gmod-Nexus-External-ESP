@@ -66,8 +66,6 @@ class Colors:
     orange = pm.get_color("orange")
     green = pm.get_color("#00FF00")
     white = pm.get_color("white")
-    blue = pm.get_color("#0000FF")
-    light_blue = pm.get_color("#00FFFF")
     hud = pm.get_color("#f5f5ff")
     hud_fade = pm.fade_color(pm.get_color("black"), 0.6)
 
