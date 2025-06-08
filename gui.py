@@ -140,7 +140,6 @@ class GUI():
                         dpg.add_text("Max ESP Distance")
                         dpg.add_slider_int(min_value=0, max_value=1000, tag="c_maxdistance", default_value=0)
 
-                with dpg.tab(label='Misc'):
                     with dpg.collapsing_header(label="Crosshair Customization", default_open=False):
                         with dpg.group(horizontal=True):
                             dpg.add_text("Style")
