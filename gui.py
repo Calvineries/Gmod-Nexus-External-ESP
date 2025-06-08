@@ -29,14 +29,14 @@ def save_friends(friends):
         json.dump(friends, f, indent=4)
 
 def toggle_friend(sender, app_data, user_data):
-    steam_id = user_data 
+    steam_id = user_data
     friends = load_friends()
     if steam_id in friends:
         friends.remove(steam_id)
     else:
         friends.append(steam_id)
     save_friends(friends)
-    get_playerlist() 
+    get_playerlist()
 
 def get_playerlist():
     player_data = app.get_players()
@@ -91,7 +91,7 @@ class GUI():
                         dpg.add_text("Show only entities with a SteamID.\n\nAllows you to hide entities that are\nnot real players.\nMust be unchecked if you want to do\ntesting with bots.")
                     dpg.add_checkbox(label='Only Friends', tag='c_onlyfriends')
                     dpg.add_checkbox(label='Only Invisible', tag='c_showinvisible')
-                    dpg.add_checkbox(label='Only Noclipping', tag='c_shownoclipping') 
+                    dpg.add_checkbox(label='Only Noclipping', tag='c_shownoclipping')
 
                 with dpg.tab(label='Players'):
                     with dpg.group(horizontal=True):
@@ -123,7 +123,7 @@ class GUI():
                     dpg.add_checkbox(label='Enable writing to game memory and other sensitive features', tag="blatantcheck", callback=enableblatant)
                     with dpg.tooltip("blatantcheck"):
                         dpg.add_text("By default, Nexus External only lets you\nenable cheats that only read game memory,\nwhich is undetectable for a game like gmod.\n\nBy checking this box, you will be able to use\nother cheats that write to the game's memory,\ngood anticheats can detect this.")
-                
+
                 with dpg.tab(label='Config'):
                     dpg.add_checkbox(label='Notification when someone is spectating you', tag="c_spectate", default_value=True)
                     with dpg.tooltip("c_spectate"):
@@ -140,6 +140,27 @@ class GUI():
                         dpg.add_text("Max ESP Distance")
                         dpg.add_slider_int(min_value=0, max_value=1000, tag="c_maxdistance", default_value=0)
 
+                with dpg.tab(label='Misc'):
+                    with dpg.collapsing_header(label="Crosshair Customization", default_open=False):
+                        with dpg.group(horizontal=True):
+                            dpg.add_text("Style")
+                            dpg.add_radio_button(tag="c_crosshair_style", items=['Dot', 'Cross', 'Circle', 'Cross + Dot', 'Circle + Dot'], default_value="Cross", horizontal=True)
+
+                        with dpg.group(horizontal=True):
+                            dpg.add_text("Size")
+                            dpg.add_slider_float(tag="c_crosshair_size", min_value=1.0, max_value=20.0, default_value=5.0, format="%.1f", width=100)
+                            dpg.add_text("Gap")
+                            dpg.add_slider_float(tag="c_crosshair_gap", min_value=0.0, max_value=10.0, default_value=2.0, format="%.1f", width=100)
+                            dpg.add_text("Thickness")
+                            dpg.add_slider_float(tag="c_crosshair_thickness", min_value=1.0, max_value=5.0, default_value=1.0, format="%.1f", width=100)
+
+                        with dpg.group(horizontal=True):
+                            dpg.add_text("Colors")
+                            dpg.add_color_edit(default_value=(255, 255, 255), tag='c_crosshair_color_default', label="Default", display_type=dpg.mvColorEdit_uint8, no_inputs=True, no_alpha=True)
+                            dpg.add_color_edit(default_value=(255, 0, 0), tag='c_crosshair_color_target', label="Target", display_type=dpg.mvColorEdit_uint8, no_inputs=True, no_alpha=True)
+                            dpg.add_color_edit(default_value=(0, 0, 255), tag='c_crosshair_color_triggerbot', label="Triggerbot", display_type=dpg.mvColorEdit_uint8, no_inputs=True, no_alpha=True)
+                            dpg.add_color_edit(default_value=(0, 0, 128), tag='c_crosshair_color_triggerbot_target', label="Triggerbot+Target", display_type=dpg.mvColorEdit_uint8, no_inputs=True, no_alpha=True)
+
                 with dpg.tab(label='About'):
                     dpg.add_text("[Nexus External ESP]")
                     dpg.add_text("Version: 2.2.0")
@@ -155,9 +176,9 @@ class GUI():
 
         with dpg.theme() as global_theme:
             with dpg.theme_component(dpg.mvAll):
-                dpg.add_theme_style(dpg.mvStyleVar_FrameBorderSize, 1, category=dpg.mvThemeCat_Core) 
-                dpg.add_theme_style(dpg.mvStyleVar_FramePadding, 20, 7 , category=dpg.mvThemeCat_Core) 
-                dpg.add_theme_style(dpg.mvStyleVar_ScrollbarSize, 20 , category=dpg.mvThemeCat_Core) 
+                dpg.add_theme_style(dpg.mvStyleVar_FrameBorderSize, 1, category=dpg.mvThemeCat_Core)
+                dpg.add_theme_style(dpg.mvStyleVar_FramePadding, 20, 7 , category=dpg.mvThemeCat_Core)
+                dpg.add_theme_style(dpg.mvStyleVar_ScrollbarSize, 20 , category=dpg.mvThemeCat_Core)
 
         dpg.bind_theme(global_theme)
 
