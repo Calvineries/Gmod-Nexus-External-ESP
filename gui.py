@@ -148,15 +148,15 @@ class GUI():
 
                         with dpg.group(horizontal=True):
                             dpg.add_text("Size")
-                            dpg.add_slider_float(tag="c_crosshair_size", min_value=1.0, max_value=20.0, default_value=5.0, format="%.1f", width=100)
+                            dpg.add_slider_float(tag="c_crosshair_size", min_value=1.0, max_value=20.0, default_value=10.0, format="%.1f", width=100)
                             dpg.add_text("Gap")
-                            dpg.add_slider_float(tag="c_crosshair_gap", min_value=0.0, max_value=10.0, default_value=2.0, format="%.1f", width=100)
+                            dpg.add_slider_float(tag="c_crosshair_gap", min_value=0.0, max_value=10.0, default_value=0.0, format="%.1f", width=100)
                             dpg.add_text("Thickness")
-                            dpg.add_slider_float(tag="c_crosshair_thickness", min_value=1.0, max_value=5.0, default_value=1.0, format="%.1f", width=100)
+                            dpg.add_slider_float(tag="c_crosshair_thickness", min_value=1.0, max_value=5.0, default_value=3.1, format="%.1f", width=100)
 
                         with dpg.group(horizontal=True):
                             dpg.add_text("Colors")
-                            dpg.add_color_edit(default_value=(255, 255, 255), tag='c_crosshair_color_default', label="Default", display_type=dpg.mvColorEdit_uint8, no_inputs=True, no_alpha=True)
+                            dpg.add_color_edit(default_value=(0, 255, 0), tag='c_crosshair_color_default', label="Default", display_type=dpg.mvColorEdit_uint8, no_inputs=True, no_alpha=True)
                             dpg.add_color_edit(default_value=(255, 0, 0), tag='c_crosshair_color_target', label="Target", display_type=dpg.mvColorEdit_uint8, no_inputs=True, no_alpha=True)
                             dpg.add_color_edit(default_value=(0, 0, 255), tag='c_crosshair_color_triggerbot', label="Triggerbot", display_type=dpg.mvColorEdit_uint8, no_inputs=True, no_alpha=True)
                             dpg.add_color_edit(default_value=(0, 0, 128), tag='c_crosshair_color_triggerbot_target', label="Triggerbot+Target", display_type=dpg.mvColorEdit_uint8, no_inputs=True, no_alpha=True)
