@@ -157,8 +157,8 @@ class GUI():
                             dpg.add_text("Colors")
                             dpg.add_color_edit(default_value=(0, 255, 0), tag='c_crosshair_color_default', label="Default", display_type=dpg.mvColorEdit_uint8, no_inputs=True, no_alpha=True)
                             dpg.add_color_edit(default_value=(255, 0, 0), tag='c_crosshair_color_target', label="Target", display_type=dpg.mvColorEdit_uint8, no_inputs=True, no_alpha=True)
-                            dpg.add_color_edit(default_value=(0, 0, 255), tag='c_crosshair_color_triggerbot', label="Triggerbot", display_type=dpg.mvColorEdit_uint8, no_inputs=True, no_alpha=True)
-                            dpg.add_color_edit(default_value=(0, 0, 128), tag='c_crosshair_color_triggerbot_target', label="Triggerbot+Target", display_type=dpg.mvColorEdit_uint8, no_inputs=True, no_alpha=True)
+                            dpg.add_color_edit(default_value=(0, 255, 255), tag='c_crosshair_color_triggerbot', label="Triggerbot", display_type=dpg.mvColorEdit_uint8, no_inputs=True, no_alpha=True)
+                            dpg.add_color_edit(default_value=(0, 0, 255), tag='c_crosshair_color_triggerbot_target', label="Triggerbot+Target", display_type=dpg.mvColorEdit_uint8, no_inputs=True, no_alpha=True)
 
                 with dpg.tab(label='About'):
                     dpg.add_text("[Nexus External ESP]")
