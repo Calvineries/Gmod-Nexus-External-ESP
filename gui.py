@@ -7,6 +7,7 @@ FRIENDS_FILE = "friends.json"
 
 def enableblatant():
     dpg.configure_item("c_triggerbot", enabled=True)
+    dpg.configure_item("c_triggerkey", enabled=True)
     dpg.configure_item("c_click_method", enabled=True)
     dpg.configure_item("c_bhop", enabled=True)
     dpg.configure_item("c_fullbright", enabled=True)
@@ -110,6 +111,8 @@ class GUI():
                         dpg.add_radio_button(tag="c_click_method", items=['Hold', 'Tap'], default_value="Hold", horizontal=True, enabled=False)
                         with dpg.tooltip("c_click_method"):
                             dpg.add_text("Should the triggerbot hold the click or spam click.")
+                        dpg.add_text("  Bind:")
+                        dpg.add_input_text(default_value="O", tag='c_triggerkey', width=50, enabled=False)
                     dpg.add_checkbox(label='Bhop', tag='c_bhop', enabled=False)
                     dpg.add_text("")
                     with dpg.collapsing_header(label='Very dangerous', tag='c_verydangerous'):

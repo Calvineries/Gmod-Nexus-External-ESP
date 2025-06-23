@@ -130,18 +130,6 @@ def start():
     threading.Thread(target=main, name='main', daemon=True).start()
     dpg.start_dearpygui()
 
-def draw_circle_filled(center_x, center_y, radius, color):
-    """Draw a filled circle using a single filled rectangle."""
-    # Draw a filled rectangle that approximates a circle
-    size = int(radius * 2)
-    pm.draw_rectangle(
-        posX=center_x - radius,
-        posY=center_y - radius,
-        width=size,
-        height=size,
-        color=color
-    )
-
 def main():
     if not pm.process_exists("gmod.exe"):
         ctypes.windll.user32.MessageBoxW(0, "Please make sure that gmod is open. And that you are using the Chromium x64 branch.", "Gmod x64 not found.", 48)
@@ -159,6 +147,16 @@ def main():
     while pm.overlay_loop():
         if not pm.process_running(gmod_exe):
             os._exit(0)
+    
+        if dpg.get_value('blatantcheck'):
+            triggerkey = dpg.get_value('c_triggerkey')
+            if len(triggerkey) == 1:
+                if win32api.GetAsyncKeyState(ord(triggerkey)):
+                    if dpg.get_value('c_triggerbot'):
+                        dpg.set_value('c_triggerbot', False)
+                    else:
+                        dpg.set_value('c_triggerbot', True)
+
         pm.begin_drawing()
         if dpg.get_value('c_hud'):
             pm.draw_rectangle_rounded(5, 5, 248, 30, 0.2, 4, Colors.hud_fade)
