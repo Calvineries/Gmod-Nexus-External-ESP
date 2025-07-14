@@ -219,8 +219,11 @@ def main():
                                         notif_offset += 35
                             if not dpg.get_value('c_hidedormant') or ent.dormant != -65536:
                                 if ent.health > 0:
-                                    with open("friends.json", "r", encoding="utf-8") as f:
-                                        friends = json.load(f)
+                                    try:
+                                        with open("friends.json", "r", encoding="utf-8") as f:
+                                            friends = json.load(f)
+                                    except:
+                                        friends = []
                                     if not dpg.get_value('c_onlyfriends') or ent.steamid in friends:
                                         if dpg.get_value('c_maxdistance') != 0:
                                             local = Local(local_player_addr, gmod_exe, client_dll["base"])
