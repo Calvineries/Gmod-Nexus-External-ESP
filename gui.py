@@ -82,12 +82,13 @@ class GUI():
                     with dpg.tooltip("c_crosshair"):
                         dpg.add_text("Dynamic crosshair.\n\nWhen you look at a player the crosshair turns red.\nIf you activate the triggerbot:\nthe crosshair will be blue, if you look\nat a player it will be dark blue.")
                     dpg.add_text("")
+                    dpg.add_text("Filters:")
                     dpg.add_checkbox(label='Hide Dormants', tag='c_hidedormant')
                     with dpg.tooltip("c_hidedormant"):
                         dpg.add_text("Hide Dormant Players on the ESP.\n\nPlayers become dormant when they leave\nthe Potential Visibility Set on the server.\nThis can also exclude fake players on the ESP.")
                     dpg.add_checkbox(label='Hide Invisible', tag='c_hideinvisible')
                     dpg.add_checkbox(label='Hide Noclipping', tag='c_hidenoclipping')
-                    dpg.add_checkbox(label='Only Real Players', tag='c_onlyplayer', default_value=True)
+                    dpg.add_checkbox(label='Only Real Players (uncheck if ESP is not working)', tag='c_onlyplayer', default_value=True)
                     with dpg.tooltip("c_onlyplayer"):
                         dpg.add_text("Show only entities with a SteamID.\n\nAllows you to hide entities that are\nnot real players.\nMust be unchecked if you want to do\ntesting with bots.")
                     dpg.add_checkbox(label='Only Friends', tag='c_onlyfriends')
@@ -135,10 +136,12 @@ class GUI():
                     with dpg.group(horizontal=True):
                         dpg.add_text("ESP Method")
                         dpg.add_radio_button(tag="c_esp_method", items=['EntityPos', 'BonesPos (experimental)'], default_value="Normal", callback=bone_mode)
-                    with dpg.group(horizontal=True):
+                    with dpg.group(horizontal=True, tag="c_esp_color"):
                         dpg.add_text("ESP Color")
                         dpg.add_radio_button(tag="c_entcolor", items=['Unicolor', 'Visibility', 'Team', 'Health'], default_value="Visibility")
                         dpg.add_color_edit(default_value=(0, 255, 0), tag='c_unicolor', display_type=dpg.mvColorEdit_uint8, no_inputs=True, no_alpha=True)
+                    with dpg.tooltip("c_esp_color"):
+                        dpg.add_text("Unicolor: all players will be displayed in\nthe selected color.\n\nVisibility: invisible players will be in red,\nnoclipping players will be in orange, and\nthe others will be in green.\n\nTeam: a random color is set for each\nteam ID. it's pretty bad right now.\n\nHealth: players who have full health will be in green,\nplayers who have low health will be in yellow then in red.")
                     with dpg.group(horizontal=True):
                         dpg.add_text("Max ESP Distance")
                         dpg.add_slider_int(min_value=0, max_value=1000, tag="c_maxdistance", default_value=0)
