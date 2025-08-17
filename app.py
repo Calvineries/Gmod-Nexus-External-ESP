@@ -53,7 +53,7 @@ class Offsets:
         if data["Weaponname"] != "":
             Weaponname = int(data["Weaponname"], 16)
         if data["Weaponclip"] != "":
-            Weaponname = int(data["Weaponclip"], 16)
+            Weaponclip = int(data["Weaponclip"], 16)
         if data["Playername"] != "":
             Playername = int(data["Playername"], 16)
         if data["SteamID"] != "":
