@@ -1,7 +1,7 @@
 # Gmod-Nexus-External-ESP V2
 
 ## About
-Nexus is an open-source Python external ESP, triggerbot and bhop compiled with PyInstaller **for GMOD x64**.  
+Nexus is an open-source Python external ESP **for GMOD x64**. Other minor features are also included like a triggerbot, and a bhop.  
 
 It's an external: nothing is injected, no lua function are used.  
 In the [GLua programming language](https://wiki.facepunch.com/gmod/), there is no way to know if a player is using software that is reading the game's memory.
@@ -28,7 +28,7 @@ Bhop|Read and Write to game memory|-
 </p>
   
 ## Download
-https://github.com/Calvineries/Gmod-Nexus-External-ESP/releases/
+There is [a version compiled with PyInstaller](https://github.com/Calvineries/Gmod-Nexus-External-ESP/releases) for those who don't know how to use Python.
   
 ## Common issues
 |Issue|Solution|
@@ -44,3 +44,5 @@ Some player names appear as "______".|These names contain non-Latin characters.<
 Where is the old version.|https://github.com/Calvineries/Gmod-Nexus-External-ESP/tree/v1-(old-version).
 
 ## Contributions to the code are welcome!
+
+[UnknownCheats forum page](https://www.unknowncheats.me/forum/garry-s-mod/690093-nexus-external-esp-v2-pymeow.html).
