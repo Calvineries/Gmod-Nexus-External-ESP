@@ -22,6 +22,7 @@ class Offsets:
         m_hObserverTarget = int(githuboffsets["m_hObserverTarget"], 16)
         m_hActiveWeapon = int(githuboffsets["m_hActiveWeapon"], 16)
         Weaponname = int(githuboffsets["Weaponname"], 16)
+        Weaponclip = int(githuboffsets["Weaponclip"], 16)
         Playername = int(githuboffsets["Playername"], 16)
         SteamID = int(githuboffsets["SteamID"], 16)
         lastupdate = str(githuboffsets["lastupdate"])
@@ -51,11 +52,13 @@ class Offsets:
             m_hActiveWeapon = int(data["m_hActiveWeapon"], 16)
         if data["Weaponname"] != "":
             Weaponname = int(data["Weaponname"], 16)
+        if data["Weaponclip"] != "":
+            Weaponname = int(data["Weaponclip"], 16)
         if data["Playername"] != "":
             Playername = int(data["Playername"], 16)
         if data["SteamID"] != "":
             SteamID = int(data["SteamID"], 16)
-        if data["LocalPlayer"] or data["EntityList"] or data["ViewMatrix"] or data["ForceJump"] or data["MatFullbright"] or data["Crosshair"] or data["BoneMatrix"] or data["m_hObserverTarget"] or data["m_hActiveWeapon"] or data["Weaponname"] or data["Playername"] or data["SteamID"] != "":
+        if data["LocalPlayer"] or data["EntityList"] or data["ViewMatrix"] or data["ForceJump"] or data["MatFullbright"] or data["Crosshair"] or data["BoneMatrix"] or data["m_hObserverTarget"] or data["m_hActiveWeapon"] or data["Weaponname"] or data["Weaponclip"] or data["Playername"] or data["SteamID"] != "":
             lastupdate = "offline"
     except FileNotFoundError:
         pass
@@ -414,9 +417,15 @@ def main():
                                                     weapon_handle = pm.r_int64(gmod_exe, client_dll["base"] + Offsets.EntityList + (ent.active_weapon - 1) * 0x20)
                                                     weapon_name = pm.r_string(gmod_exe, weapon_handle + Offsets.Weaponname)
                                                     if not isinstance(weapon_name, bytes) and weapon_name:
+                                                        f_ammo = ""
+                                                        if dpg.get_value('c_ammo'):
+                                                            ammo = pm.r_int(gmod_exe, weapon_handle + Offsets.Weaponclip)
+                                                            if ammo >= 0:
+                                                                f_ammo = f"({ammo})"
+
                                                         pm.draw_font(
                                                             fontId=1,
-                                                            text=weapon_name,
+                                                            text=f"{weapon_name} {f_ammo}",
                                                             posX=ent.wts["x"],
                                                             posY=ent.wts["y"] + text_offset,
                                                             fontSize=15,
@@ -501,9 +510,14 @@ def main():
                                                     weapon_handle = pm.r_int64(gmod_exe, client_dll["base"] + Offsets.EntityList + (ent.active_weapon - 1) * 0x20)
                                                     weapon_name = pm.r_string(gmod_exe, weapon_handle + Offsets.Weaponname)
                                                     if not isinstance(weapon_name, bytes) and weapon_name:
+                                                        f_ammo = ""
+                                                        if dpg.get_value('c_ammo'):
+                                                            ammo = pm.r_int(gmod_exe, weapon_handle + Offsets.Weaponclip)
+                                                            if ammo >= 0:
+                                                                f_ammo = f"({ammo})"
                                                         pm.draw_font(
                                                             fontId=1,
-                                                            text=weapon_name,
+                                                            text=f"{weapon_name} {f_ammo}",
                                                             posX=ent.wts["x"],
                                                             posY=ent.wts["y"] + text_offset,
                                                             fontSize=15,
