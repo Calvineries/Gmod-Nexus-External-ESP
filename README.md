@@ -4,10 +4,10 @@
 Nexus is an open-source Python external ESP **for GMOD x64**. Other minor features are also included like a triggerbot, and a bhop.  
 
 It's an external: nothing is injected, no lua function are used.  
-In the [GLua programming language](https://wiki.facepunch.com/gmod/), there is no way to know if a player is using software that is reading the game's memory.
+In the [GLua programming language](https://wiki.facepunch.com/gmod/), there is no way to know if a player is using a software that is reading the game's memory.
   
 The visuals are displayed in another application, as an overlay.  
-Screengrab scripts use the lua [render.Capture](https://wiki.facepunch.com/gmod/render.Capture) function, which only capture what is rendered by the game.  
+Screengrab anticheats use the lua [render.Capture](https://wiki.facepunch.com/gmod/render.Capture) function, which only capture what is rendered by the game.  
 
 |Features|Methods|Undetectable
 |-|-|-|
