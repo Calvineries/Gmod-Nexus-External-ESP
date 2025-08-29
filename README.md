@@ -1,11 +1,14 @@
 # Gmod-Nexus-External-ESP V2
 
 ## About
-Nexus is an open-source Python external ESP, triggerbot and bhop compiled with PyInstaller **for GMOD x64**.  
-It's external : nothing is injected, no lua code is used/edited.  
+Nexus is an open-source Python external ESP **for GMOD x64**. Other minor features are also included like a triggerbot, and a bhop.  
+
+It's an external: nothing is injected, no lua function are used, it just reads the game memory.  
+In the [GLua programming language](https://wiki.facepunch.com/gmod/), there is no way to know if a player is using a software that is reading the game's memory.
   
-The visuals are not in the game: it's another application which is on top of gmod.  
-So it's impossible to detect, impossible to screengrab.  
+Is the cheat visible on the screengrabs?  
+The visuals are displayed in another application, as an overlay.  
+Screengrab anticheats use the lua [render.Capture](https://wiki.facepunch.com/gmod/render.Capture) function, which only capture what is rendered by the game.  
 
 |Features|Methods|Undetectable
 |-|-|-|
@@ -26,7 +29,7 @@ Bhop|Read and Write to game memory|-
 </p>
   
 ## Download
-https://github.com/Calvineries/Gmod-Nexus-External-ESP/releases/
+There is [a version compiled with PyInstaller](https://github.com/Calvineries/Gmod-Nexus-External-ESP/releases) for those who don't know how to use Python.
   
 ## Common issues
 |Issue|Solution|
@@ -37,8 +40,10 @@ The offsets are outdated.|You can use my "offset dumper" to get the new offsets:
 How to install dependencies for the uncompiled version.|- Install the "dearpygui", "pywin32" and "requests" modules using pip.<br>- Download and install pyMeow : https://github.com/qb-0/pyMeow.
 In Singleplayer the ESP doesn't work.<br>Bots are not displayed on the ESP.|Uncheck "Only Real Players".
 How to enable the Skeleton ESP.|In the "Config" tab you must put the ESP in "BonesPos" mode.
-The overlay is black (non transparent).|- Solution 1: Change the "OpenGL GDI Compatibility" in Nvidia Control Panel to "Prefer compatibility".<br>- Solution 2: Make the application (if compiled), or python (if not compiled) use your integrated graphics card instead of your graphics card (or the opposite).
+The overlay is black (non transparent).|- Solution 1: Change the "OpenGL GDI Compatibility" in Nvidia Control Panel to "Prefer compatibility".<br>- Solution 2: Toggle the "OpenGL Triple Buffering" option in the AMD software.<br>- Solution 3: Make the application (if compiled), or python (if not compiled) use your integrated graphics card instead of your graphics card (or the opposite).
 Some player names appear as "______".|These names contain non-Latin characters.<br>To display them, you must place a font file named "font.ttf" in the "font" folder.
 Where is the old version.|https://github.com/Calvineries/Gmod-Nexus-External-ESP/tree/v1-(old-version).
 
 ## Contributions to the code are welcome!
+
+[UnknownCheats forum page](https://www.unknowncheats.me/forum/garry-s-mod/690093-nexus-external-esp-v2-pymeow.html).
