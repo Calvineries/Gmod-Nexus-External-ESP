@@ -167,8 +167,10 @@ def main():
             pm.draw_text(f"Nexus ESP | {pm.get_fps()} fps", 12, 11, 24, Colors.hud)
 
             texts = []
-            if dpg.get_value('c_box'):
-                texts.append("ESP")
+            if dpg.get_value('c_skeleton'):
+                texts.append("Skeleton ESP")
+            elif dpg.get_value('c_box'):
+                texts.append("Box ESP")
             if dpg.get_value('c_tracer'):
                 texts.append("Tracer")
             if dpg.get_value('c_crosshair'):
