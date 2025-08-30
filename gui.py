@@ -147,6 +147,14 @@ class GUI():
                     with dpg.tooltip("c_esp_color"):
                         dpg.add_text("Unicolor: all players will be displayed in\nthe selected color.\n\nVisibility: invisible players will be in red,\nnoclipping players will be in orange, and\nthe others will be in green.\n\nTeam: a random color is set for each\nteam ID. it's pretty bad right now.\n\nHealth: players who have full health will be in green,\nplayers who have low health will be in yellow then in red.")
                     with dpg.group(horizontal=True):
+                        dpg.add_checkbox(label='Transparency based on distance', tag='c_transparency')
+                        with dpg.tooltip("c_transparency"):
+                            dpg.add_text("Gradually makes distant players transparent.\nUseful when there are a lot of players\non a server.")
+                        dpg.add_text("  Scale:")
+                        dpg.add_slider_float(tag='c_transparency_scale', default_value=1.0, min_value=0.02, max_value=1.4, width=150)
+                        with dpg.tooltip("c_transparency_scale"):
+                            dpg.add_text("Since maps have different sizes, the scale is used to define from which point a player is considered too far away.")
+                    with dpg.group(horizontal=True):
                         dpg.add_text("Max ESP Distance")
                         dpg.add_slider_int(min_value=0, max_value=1000, tag="c_maxdistance", default_value=0)
 
@@ -172,7 +180,7 @@ class GUI():
 
                 with dpg.tab(label='About'):
                     dpg.add_text("[Nexus External ESP]")
-                    dpg.add_text("Version: 2.2.1")
+                    dpg.add_text("Version: 2.2.2")
                     if "offline" in {app.Offsets.lastupdate}:
                         dpg.add_text(f"Custom offsets mode.")
                     else:

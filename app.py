@@ -230,10 +230,12 @@ def main():
                                     except:
                                         friends = []
                                     if not dpg.get_value('c_onlyfriends') or ent.steamid in friends:
+                                        local = Local(local_player_addr, gmod_exe, client_dll["base"])
+                                        dist = pm.vec3_distance(local.pos, ent.pos)
+                                        dist_meters = int(dist / 32)
+
                                         if dpg.get_value('c_maxdistance') != 0:
-                                            local = Local(local_player_addr, gmod_exe, client_dll["base"])
-                                            distance = pm.vec3_distance(local.pos, ent.pos)
-                                            if int(distance / 32) > dpg.get_value('c_maxdistance') and ent.steamid not in friends:
+                                            if dist_meters > dpg.get_value('c_maxdistance') and ent.steamid not in friends:
                                                 continue
                                         if dpg.get_value('c_entcolor') == "Unicolor":
                                             if ent.steamid in friends:
@@ -283,11 +285,26 @@ def main():
                                                 r = 255 - g
                                                 b = 0
                                                 ent.color = pm.get_color("#{:02X}{:02X}{:02X}".format(r, g, b))
+                                        if dpg.get_value('c_transparency') and ent.steamid not in friends:
+                                            scale = dpg.get_value('c_transparency_scale')
+                                            
+                                            min_dist = 100 * scale
+                                            max_dist = 400 * scale
+                                            
+                                            if dist_meters <= min_dist:
+                                                ent.color = pm.fade_color(ent.color, 1.0)
+                                            elif dist_meters >= max_dist:
+                                                ent.color = pm.fade_color(ent.color, 0.2)
+                                            else:
+                                                ent.color = pm.fade_color(
+                                                    ent.color, 
+                                                    1.0 + (dist_meters - min_dist) * (-0.8 / (max_dist - min_dist))
+                                                )
+
                                         if dpg.get_value('c_esp_method') == "BonesPos (experimental)":
                                             try:
                                                 if pm.vec3_distance(ent.pos, ent.bone_pos(7)) < 100:
                                                     local = Local(local_player_addr, gmod_exe, client_dll["base"])
-                                                    dist = pm.vec3_distance(local.pos, ent.pos)
                                                     ent.wts = pm.world_to_screen(view_matrix, ent.pos, 1)
                                                     head_pos = pm.world_to_screen(view_matrix, ent.bone_pos(7), 1)
                                                     head = ent.wts["y"] - head_pos["y"]
@@ -359,7 +376,6 @@ def main():
 
                                                 else:
                                                     local = Local(local_player_addr, gmod_exe, client_dll["base"])
-                                                    dist = pm.vec3_distance(local.pos, ent.pos)
                                                     width = 48000 / dist
                                                     center = width / -2
                                                     centerfix = center / 2
@@ -438,7 +454,7 @@ def main():
                                                 if dpg.get_value('c_distance'):
                                                     pm.draw_font(
                                                         fontId=1,
-                                                        text=f"{int(dist/32)} m",
+                                                        text=f"{dist_meters} m",
                                                         posX=ent.wts["x"],
                                                         posY=ent.wts["y"] + text_offset,
                                                         fontSize=15,
@@ -530,7 +546,7 @@ def main():
                                                 if dpg.get_value('c_distance'):
                                                     pm.draw_font(
                                                         fontId=1,
-                                                        text=f"{int(dist/32)} m",
+                                                        text=f"{dist_meters} m",
                                                         posX=ent.wts["x"],
                                                         posY=ent.wts["y"] + text_offset,
                                                         fontSize=15,
