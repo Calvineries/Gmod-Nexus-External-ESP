@@ -296,10 +296,12 @@ def main():
                                             elif dist_meters >= max_dist:
                                                 ent.color = pm.fade_color(ent.color, 0.2)
                                             else:
-                                                ent.color = pm.fade_color(
-                                                    ent.color, 
-                                                    1.0 + (dist_meters - min_dist) * (-0.8 / (max_dist - min_dist))
-                                                )
+                                                alpha = 1.0 + (dist_meters - min_dist) * (-0.8 / (max_dist - min_dist))
+                                                if alpha <= 0:
+                                                    alpha = 0.2
+                                                elif alpha >= 1.0:
+                                                    alpha = 1.0
+                                                ent.color = pm.fade_color(ent.color, alpha)
 
                                         if dpg.get_value('c_esp_method') == "BonesPos (experimental)":
                                             try:
