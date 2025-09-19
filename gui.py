@@ -76,11 +76,8 @@ class GUI():
                     dpg.add_checkbox(label='Name', tag='c_name', default_value=True)
                     with dpg.group(horizontal=True):
                         dpg.add_checkbox(label='Weapon', tag='c_weapon', default_value=True)
-                        dpg.add_checkbox(label='Ammo', tag='c_ammo', default_value=False)
                     with dpg.tooltip("c_weapon"):
                         dpg.add_text("Draws the name of the held weapon.")
-                    with dpg.tooltip("c_ammo"):
-                        dpg.add_text("Draws the amount of ammo in the held weapon clip.")
                     dpg.add_checkbox(label='Distance', tag='c_distance')
                     dpg.add_checkbox(label='Crosshair', tag='c_crosshair', default_value=True)
                     with dpg.tooltip("c_crosshair"):
@@ -139,7 +136,7 @@ class GUI():
                     dpg.add_checkbox(label='HUD', tag="c_hud", default_value=True)
                     with dpg.group(horizontal=True):
                         dpg.add_text("ESP Method")
-                        dpg.add_radio_button(tag="c_esp_method", items=['EntityPos', 'BonesPos (experimental)'], default_value="Normal", callback=bone_mode)
+                        dpg.add_radio_button(tag="c_esp_method", items=['EntityPos', 'BonesPos (experimental)'], default_value="EntityPos", callback=bone_mode)
                     with dpg.group(horizontal=True, tag="c_esp_color"):
                         dpg.add_text("ESP Color")
                         dpg.add_radio_button(tag="c_entcolor", items=['Unicolor', 'Visibility', 'Team', 'Health'], default_value="Visibility")
