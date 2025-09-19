@@ -150,7 +150,7 @@ class GUI():
                         dpg.add_text("  Scale:")
                         dpg.add_slider_float(tag='c_transparency_scale', default_value=1.0, min_value=0.02, max_value=1.4, width=150)
                         with dpg.tooltip("c_transparency_scale"):
-                            dpg.add_text("Since maps have different sizes, the scale is used to define from which point a player is considered too far away.")
+                            dpg.add_text("Since maps have different sizes, the scale is\nused to define from which point a player is considered\ntoo far away.")
                     with dpg.group(horizontal=True):
                         dpg.add_text("Max ESP Distance")
                         dpg.add_slider_int(min_value=0, max_value=1000, tag="c_maxdistance", default_value=0)
