@@ -177,7 +177,7 @@ class GUI():
 
                 with dpg.tab(label='About'):
                     dpg.add_text("[Nexus External ESP]")
-                    dpg.add_text("Version: 2.2.2")
+                    dpg.add_text("Version: 2.2.2b")
                     if "offline" in {app.Offsets.lastupdate}:
                         dpg.add_text(f"Custom offsets mode.")
                     else:
@@ -200,3 +200,4 @@ class GUI():
         dpg.setup_dearpygui()
         dpg.show_viewport()
         dpg.set_primary_window("w_main", True)
+
