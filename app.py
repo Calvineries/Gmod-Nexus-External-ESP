@@ -453,7 +453,7 @@ def main():
                                                     if not isinstance(weapon_name, bytes) and weapon_name:
                                                         pm.draw_font(
                                                             fontId=1,
-                                                            text=f"{weapon_name} {f_ammo}",
+                                                            text=f"{weapon_name}",
                                                             posX=ent.wts["x"],
                                                             posY=ent.wts["y"] + text_offset,
                                                             fontSize=15,
@@ -540,7 +540,7 @@ def main():
                                                     if not isinstance(weapon_name, bytes) and weapon_name:
                                                         pm.draw_font(
                                                             fontId=1,
-                                                            text=f"{weapon_name} {f_ammo}",
+                                                            text=f"{weapon_name}",
                                                             posX=ent.wts["x"],
                                                             posY=ent.wts["y"] + text_offset,
                                                             fontSize=15,
@@ -770,3 +770,4 @@ def main():
 if __name__ == "__main__":
     gui = GUI()
     start()
+
