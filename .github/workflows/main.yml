@@ -1,0 +1,45 @@
+name: Build with PyInstaller
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - app.py
+      - gui.py
+  release:
+    types: [created]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install dearpygui
+          pip install pywin32
+          pip install requests
+          pip install https://github.com/qb-0/pyMeow/releases/download/1.73.42/pyMeow-1.73.42.zip
+          pip install pyinstaller
+
+      - name: Build executable
+        run: pyinstaller --onefile app.py --icon "NONE" --name "nexus"
+
+      - name: Copy extra files to dist
+        run: |
+          copy custom_offsets.json dist\
+          xcopy font dist\font\ /E /I
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: nexus
+          path: dist/*
